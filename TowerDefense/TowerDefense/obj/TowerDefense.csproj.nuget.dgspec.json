@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\KGA\\Desktop\\Study\\C#\\Study\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {}
+    "C:\\Users\\KGA\\Documents\\GitHub\\TowerDefense\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {}
   },
   "projects": {
-    "C:\\Users\\KGA\\Desktop\\Study\\C#\\Study\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {
+    "C:\\Users\\KGA\\Documents\\GitHub\\TowerDefense\\TowerDefense\\TowerDefense\\TowerDefense.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\KGA\\Desktop\\Study\\C#\\Study\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
+        "projectUniqueName": "C:\\Users\\KGA\\Documents\\GitHub\\TowerDefense\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
         "projectName": "TowerDefense",
-        "projectPath": "C:\\Users\\KGA\\Desktop\\Study\\C#\\Study\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
+        "projectPath": "C:\\Users\\KGA\\Documents\\GitHub\\TowerDefense\\TowerDefense\\TowerDefense\\TowerDefense.csproj",
         "packagesPath": "C:\\Users\\KGA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\KGA\\Desktop\\Study\\C#\\Study\\TowerDefense\\TowerDefense\\obj\\",
+        "outputPath": "C:\\Users\\KGA\\Documents\\GitHub\\TowerDefense\\TowerDefense\\TowerDefense\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\KGA\\AppData\\Roaming\\NuGet\\NuGet.Config",

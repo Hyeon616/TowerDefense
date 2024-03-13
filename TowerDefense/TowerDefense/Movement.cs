@@ -1,6 +1,5 @@
 ﻿using Character;
 using Map;
-using System.Threading;
 
 namespace MovePlayer
 {
@@ -8,7 +7,7 @@ namespace MovePlayer
     {
         static bool IsMoveValid(int x, int y)
         {
-            return x >= 0 && x < Maps.map.GetLength(0) && y >= 0 && y < Maps.map.GetLength(1);
+            return x >= 0 && x < Maps.mapWidth && y >= 0 && y < Maps.mapHeight;
         }
 
         public static void Move(ConsoleKeyInfo keyInfo, Player player)
@@ -33,24 +32,36 @@ namespace MovePlayer
                         player.Y++;
                     break;
             }
-            
+
         }
+
+
 
         public static void EnemyMove(Enemy enemy)
         {
             Thread.Sleep(500);
 
-            if (IsMoveValid(enemy.X, enemy.Y + 1))
+            if (IsMoveValid(enemy.X, enemy.Y) && enemy.X < 4 &&enemy.Y==0)
+            {
+                enemy.X++;
+                Console.SetCursorPosition(15, 15);
+                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
+            }
+            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 4 && enemy.Y < 11)
+            {
                 enemy.Y++;
-            else if (IsMoveValid(enemy.X - 1, enemy.Y))
-                enemy.X++;
-            else if (IsMoveValid(enemy.X + 1, enemy.Y))
-                enemy.X++;
-            else if (IsMoveValid(enemy.X, enemy.Y - 1))
-                enemy.Y--;
-            else
-                return;
+                Console.SetCursorPosition(15, 15);
+                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
+            }
+            else if (IsMoveValid(enemy.X , enemy.Y) && enemy.X > 0 && enemy.Y == 11)
+            {
+                enemy.X--;
+                Console.SetCursorPosition(15, 15);
+                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
+            }
             
+
+
         }
 
     }

@@ -11,10 +11,10 @@ namespace TowerDefense
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            
 
-            Player player = new Player(5,5);
-            Enemy enemy = new Enemy(0,0);
+            Player player = new Player('▣', 5, 5);
+            Enemy enemy = new Enemy('●', 0, 0);
+
 
             Maps.Map(player,enemy);
 
@@ -28,10 +28,9 @@ namespace TowerDefense
                     Movement.Move(keyInfo, player);
                 }
 
-
+                Console.SetCursorPosition(0, 0);
                 Maps.Map(player, enemy);
-
-
+                
 
             }
         }
