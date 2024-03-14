@@ -7,12 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Buffer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Buffer.cs" />
-  </ItemGroup>
-
 </Project>

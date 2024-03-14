@@ -4,22 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Map;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Character
 {
-    public class Player
+    public class Unit
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public char Image { get; set; }
-
-        public Player(char image ,int x, int y)
-        {
-            X = x;
-            Y = y;
-            Image = image;
-        }
 
         public void Move(int newX, int newY)
         {
@@ -27,23 +18,29 @@ namespace Character
             Y = newY;
         }
     }
-    public class Enemy
-    {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public char Image { get; set; }
 
-        public Enemy(char image, int x, int y)
+    public class Player : Unit
+    {
+        
+        public Player(int x, int y)
         {
             X = x;
             Y = y;
-            Image = image;
         }
 
-        public void Move(int newX, int newY)
+    }
+    public class Enemy : Unit
+    {
+        public int ID { get; set; }
+        public int Hp { get; set; }
+        
+        public Enemy(int x, int y, int hp)
         {
-            X = newX;
-            Y = newY;
+            X = x;
+            Y = y;
+            Hp = hp;
         }
+
+        
     }
 }

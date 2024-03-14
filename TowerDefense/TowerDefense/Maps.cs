@@ -7,22 +7,23 @@ namespace Map
         public const int mapWidth = 12;
         public const int mapHeight = 12;
 
-        enum MapState
+
+        public enum MapState
         {
             LINE,
             BUILD,
-            FIRE,
-            WATER,
-            ELECTRO,
+            STAR,
+            SPADE,
+            MUSIC,
             LASOR,
 
         }
 
         private static char lineImage = '□';
         private static char buildImage = '■';
-        private static char fireImage = ' ';
-        private static char waterImage = ' ';
-        private static char electroImage = ' ';
+        private static char starImage = '★';
+        private static char spadeImage = '♠';
+        private static char musicImage = '♬';
         private static char lasorImage = ' ';
         private static char playerImage = '▣';
         private static char enemyImage = '●';
@@ -47,8 +48,6 @@ namespace Map
 
         public static void Map(Player player, Enemy enemy)
         {
-            //Console.Clear();
-
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -69,7 +68,6 @@ namespace Map
                     }
                     else
                     {
-
                         switch ((MapState)map[i, j])
                         {
                             case MapState.LINE:
@@ -77,12 +75,25 @@ namespace Map
                                 break;
                             case MapState.BUILD:
                                 Console.ForegroundColor = ConsoleColor.Yellow;
-
                                 Console.Write(buildImage);
                                 Console.ForegroundColor = ConsoleColor.White;
                                 break;
+                            case MapState.STAR:
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(starImage);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                break;
+                            case MapState.SPADE:
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(spadeImage);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                break;
+                            case MapState.MUSIC:
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write(musicImage);
+                                Console.ForegroundColor = ConsoleColor.White;
+                                break;
                         }
-
 
                     }
                 }
