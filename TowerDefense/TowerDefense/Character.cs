@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Map;
-
-namespace Character
+﻿namespace TowerDefense.Unit
 {
     public class Unit
     {
@@ -21,11 +14,11 @@ namespace Character
 
     public class Player : Unit
     {
-        
-        public Player(int x, int y)
+
+        public Player()
         {
-            X = x;
-            Y = y;
+            X = 5;
+            Y = 5;
         }
 
     }
@@ -34,11 +27,13 @@ namespace Character
         public int ID { get; set; }
         public int Hp { get; set; }
         
-        public Enemy(int x, int y, int hp)
+
+        public Enemy(int id)
         {
-            X = x;
-            Y = y;
-            Hp = hp;
+            ID = id;
+            X = 0;
+            Y = 0;
+            Thread.Sleep(300);
         }
 
         
