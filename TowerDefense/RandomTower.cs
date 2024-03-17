@@ -12,7 +12,7 @@ namespace TowerDefense.RandomTower
         public static int BuildTowerNumber()
         {
             Random random = new Random();
-            int randomTower = random.Next(2, 5);
+            int randomTower = random.Next(2, 6);
 
             return randomTower;
         }

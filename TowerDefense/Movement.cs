@@ -1,13 +1,12 @@
-﻿using TowerDefense.Unit;
-using TowerDefense.Map;
-using TowerDefense.RandomTower;
+﻿using TowerDefense.Map;
+using TowerDefense.Unit;
 
 namespace TowerDefense.Movement
 {
     internal class Movement
     {
         static bool IsMoveValid(int x, int y)
-        { 
+        {
             return x >= 0 && x < Maps.mapWidth && y >= 0 && y < Maps.mapHeight;
         }
 
@@ -19,12 +18,7 @@ namespace TowerDefense.Movement
             {
                 case ConsoleKey.UpArrow:
                     if (IsMoveValid(player.X - 1, player.Y))
-                    {
                         player.X--;
-                        Console.SetCursorPosition(player.X, player.Y);
-                        Console.Write($"{Maps.playerImage}");
-                    }
-
                     break;
                 case ConsoleKey.DownArrow:
                     if (IsMoveValid(player.X + 1, player.Y))
@@ -58,6 +52,11 @@ namespace TowerDefense.Movement
                                 Console.SetCursorPosition(15, 16);
                                 Console.WriteLine("음악 타워 건설                    ");
                                 break;
+                            case (int)Maps.MapState.LASOR:
+                                Maps.map[player.X, player.Y] = 5;
+                                Console.SetCursorPosition(15, 16);
+                                Console.WriteLine("레이저 타워 건설                    ");
+                                break;
                             default:
                                 break;
                         }
@@ -73,139 +72,100 @@ namespace TowerDefense.Movement
 
         }
 
+
         static bool moveCheck1 = true;
         static bool moveCheck2 = true;
         static bool moveCheck3 = true;
-        static bool moveCheck4 = true;
-        static bool moveCheck5 = true;
-        static bool moveCheck6 = true;
-        static bool moveCheck7 = true;
-        static bool moveCheck8 = true;
-        static bool moveCheck9 = true;
-        static bool moveCheck10 = true;
-        static bool moveCheck11 = true;
 
-        
 
-        public static void EnemyMove(Enemy enemy)
+        public static void EnemyMove(List<Enemy> enemies)
         {
-            Thread.Sleep(300);
+            Thread.Sleep(100);
 
-            // 4,0 까지
-            if (IsMoveValid(enemy.X, enemy.Y) && enemy.X < 4 && enemy.Y == 0 && moveCheck1)
+            foreach (var enemy in enemies)
             {
-                enemy.X++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 4 && enemy.Y == 0)
-                    moveCheck1 = false;
-            }
-            // 4, 11 까지
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 4 && enemy.Y < 11 && moveCheck2)
-            {
-                enemy.Y++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 4 && enemy.Y == 11)
+                if (IsMoveValid(enemy.X, enemy.Y))
                 {
-                    moveCheck1 = true;
-                    moveCheck2 = false;
+                    // 4,0 까지
+                    if (enemy.X < 4 && enemy.Y == 0)
+                    {
+                        ++enemy.X;
+                    }
+                    // 4, 11 까지
+                    else if (enemy.X == 4 && enemy.Y < 11 && moveCheck1)
+                    {
+                        ++enemy.Y;
+                    }
+                    // 0, 11 까지
+                    else if (enemy.X > 0 && enemy.Y == 11 && enemy.X < 5)
+                    {
+                        --enemy.X;
+
+                        if (enemy.X == 0 && enemy.Y == 11)
+                            moveCheck1 = false;
+                    }
+                    // 0,7 까지
+                    else if (enemy.X == 0 && enemy.Y > 7)
+                    {
+                        --enemy.Y;
+
+                    }
+                    // 11, 7까지
+                    else if (enemy.X < 11 && enemy.Y == 7 && moveCheck2)
+                    {
+                        ++enemy.X;
+
+                    }
+                    //11,11
+                    else if (enemy.X == 11 && enemy.Y < 11 && enemy.Y > 6)
+                    {
+                        enemy.Y++;
+
+                    }
+                    // 7,11
+                    else if (enemy.X > 7 && enemy.Y == 11)
+                    {
+                        enemy.X--;
+
+                        if (enemy.X == 7 && enemy.Y == 11)
+                            moveCheck2 = false;
+
+                    }
+                    //7 ,0
+                    else if (enemy.X == 7 && enemy.Y > 0 && moveCheck3)
+                    {
+                        enemy.Y--;
+                    }
+                    // 11,0
+                    else if (enemy.X < 11 && enemy.Y == 0)
+                    {
+                        enemy.X++;
+
+                    }
+                    ////11,4
+                    else if (enemy.X == 11 && enemy.Y < 4)
+                    {
+                        enemy.Y++;
+
+                        if (enemy.X == 11 && enemy.Y == 4)
+                            moveCheck3 = false;
+
+                    }
+                    ////0,4
+                    else if (enemy.X > 0 && enemy.Y == 4)
+                    {
+                        enemy.X--;
+                    }
+
+
                 }
-            }
-            // 0, 11 까지
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X > 0 && enemy.Y == 11 && moveCheck3)
-            {
-                enemy.X--;
                 Console.SetCursorPosition(15, 15);
                 Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 0 && enemy.Y == 11)
-                {
-                    moveCheck2 = true;
-                    moveCheck3 = false;
-                }
+
             }
 
-            // 0,7 까지
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 0 && enemy.Y > 7 && moveCheck4)
-            {
-                enemy.Y--;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 0 && enemy.Y == 7)
-                {
-                    moveCheck3 = true;
-                    moveCheck4 = false;
-                }
-            }
-            // 11, 7까지
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X < 11 && enemy.Y == 7 && moveCheck5)
-            {
-                enemy.X++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 11 && enemy.Y == 7)
-                {
-                    moveCheck4 = true;
-                    moveCheck5 = false;
-                }
-            }
-            //11,11
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 11 && enemy.Y < 11 && moveCheck6)
-            {
-                enemy.Y++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 11 && enemy.Y == 11)
-                {
-                    moveCheck5 = true;
-                    moveCheck6 = false;
-                }
-            }
-            // 7,11
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X > 7 && enemy.Y == 11 && moveCheck7)
-            {
-                enemy.X--;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 7 && enemy.Y == 11)
-                    moveCheck7 = false;
-            }
-            //7 ,0
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 7 && enemy.Y > 0 && moveCheck8)
-            {
-                enemy.Y--;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 7 && enemy.Y == 0)
-                    moveCheck8 = false;
-            }
-            // 11,0
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X < 11 && enemy.Y == 0 && moveCheck9)
-            {
-                enemy.X++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 11 && enemy.Y == 0)
-                    moveCheck9 = false;
-            }
-            //11,4
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X == 11 && enemy.Y < 4 && moveCheck10)
-            {
-                enemy.Y++;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 11 && enemy.Y == 4)
-                    moveCheck10 = false;
-            }
-            //0,4
-            else if (IsMoveValid(enemy.X, enemy.Y) && enemy.X > 0 && enemy.Y == 4 && moveCheck11)
-            {
-                enemy.X--;
-                Console.SetCursorPosition(15, 15);
-                Console.WriteLine($"X : {enemy.X}, Y : {enemy.Y}");
-                if (enemy.X == 0 && enemy.Y == 4)
-                    moveCheck11 = false;
-            }
+
+
         }
 
     }

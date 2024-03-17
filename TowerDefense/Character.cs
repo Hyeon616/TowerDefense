@@ -4,7 +4,7 @@
     {
         public int X { get; set; }
         public int Y { get; set; }
-
+        
         public void Move(int newX, int newY)
         {
             X = newX;
@@ -15,25 +15,23 @@
     public class Player : Unit
     {
 
-        public Player()
+        public Player(int x, int y)
         {
-            X = 5;
-            Y = 5;
+            X = x;
+            Y = y;
         }
 
     }
     public class Enemy : Unit
     {
-        public int ID { get; set; }
         public int Hp { get; set; }
         
 
-        public Enemy(int id)
+        public Enemy(int x, int y)
         {
-            ID = id;
-            X = 0;
-            Y = 0;
-            Thread.Sleep(300);
+            
+            X = x;
+            Y = y;
         }
 
         

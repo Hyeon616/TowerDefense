@@ -5,42 +5,40 @@ namespace TowerDefense
 {
     internal class Program
     {
-        public static void Spa(Enemy enemy)
-        {
-            Movement.Movement.EnemyMove(enemy);
-        }
+        
 
 
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            Player player = new Player();
+            Console.SetWindowSize(50, 30);
 
-            List<Enemy> enemyList = new List<Enemy>();
-            Enemy enemy1 = new Enemy(0);
-            Enemy enemy2 = new Enemy(1);
-            Enemy enemy3 = new Enemy(2);
-            Enemy enemy4 = new Enemy(3);
-            Enemy enemy5 = new Enemy(4);
-            Enemy enemy6 = new Enemy(5);
-            Enemy enemy7 = new Enemy(6);
+
+            Player player = new Player(5,5);
+
+            List<Enemy> enemies = new List<Enemy>();
+            for (int i = 0; i < 5; i++)
+            {
+                enemies.Add(new Enemy(0,0));
+            }
+
 
 
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                Maps.PrintMap(player, enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7);
+                Maps.PrintMap(player, enemies);
 
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
                     Movement.Movement.Input(keyInfo, player);
                 }
-
-                Spa(enemy1);
-                Spa(enemy2);
-                Spa(enemy3);
-                Spa(enemy4);
+                Movement.Movement.EnemyMove(enemies);
+                
+                //Spa(enemy2);
+                //Spa(enemy3);
+                //Spa(enemy4);
 
 
                 //Maps.RenderingMap(player, enemy);
