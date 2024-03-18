@@ -1,56 +1,53 @@
 ﻿using TowerDefense.Map;
+using TowerDefense.RandomTower;
+using TowerDefense.Spawner;
 using TowerDefense.Unit;
+using TowerDefense.Control;
 
 namespace TowerDefense
 {
     internal class Program
     {
         
-
-
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            Console.SetWindowSize(50, 30);
+            Console.SetWindowSize(80, 30);
 
 
-            Player player = new Player(5,5);
-
-            List<Enemy> enemies = new List<Enemy>();
-            for (int i = 0; i < 5; i++)
-            {
-                enemies.Add(new Enemy(0,0));
-            }
-
+            EnemySpawner.Spawn();
 
 
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
-                Maps.PrintMap(player, enemies);
+                Maps.PrintMap(Movement.player, EnemySpawner.enemies);
+                
+                UI.PlayerUI(Movement.player);
+                UI.EnemyHpUI(EnemySpawner.enemies);
+                UI.WaveTimeUI(EnemySpawner.roundTime);
 
                 if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    Movement.Movement.Input(keyInfo, player);
+                    Movement.Input(keyInfo, Movement.player, SetTower.towerGroup);
                 }
-                Movement.Movement.EnemyMove(enemies);
-                
-                //Spa(enemy2);
-                //Spa(enemy3);
-                //Spa(enemy4);
 
+                foreach (Tower tower in SetTower.towerGroup)
+                {
+                    tower.StartAttack();
+                }
 
-                //Maps.RenderingMap(player, enemy);
-                //Maps.MoveObject(player, enemy);
-
-
-                
-
-
-
+                Movement.EnemyMove(Movement.player, EnemySpawner.enemies);
+               
 
             }
         }
+
+
+
+
+
+
     }
 }

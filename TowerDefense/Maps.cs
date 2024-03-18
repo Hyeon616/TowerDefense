@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using TowerDefense.Unit;
 
 namespace TowerDefense.Map
@@ -20,14 +21,14 @@ namespace TowerDefense.Map
 
         }
 
-        public static char lineImage = '□';
-        public static char buildImage = '■';
-        public static char starImage = '★';
-        public static char spadeImage = '♠';
-        public static char musicImage = '♬';
-        public static char lasorImage = '◈';
-        public static char playerImage = '▣';
-        public static char enemyImage = '●';
+        public const char lineImage = '□';
+        public const char buildImage = '■';
+        public const char starImage = '★';
+        public const char spadeImage = '♠';
+        public const char musicImage = '♬';
+        public const char lasorImage = '◈';
+        public const char playerImage = '▣';
+        public const char enemyImage = '●';
 
 
         public static int[,] map =
@@ -99,12 +100,13 @@ namespace TowerDefense.Map
 
                 }
                 
-            }// end for
+            }
 
             for (int i = 0; i < displayMap.GetLength(0); i++)
             {
                 for (int j = 0; j < displayMap.GetLength(1); j++)
                 {
+
                     if (displayMap[i,j] == lineImage)
                     {
                         Console.ForegroundColor = ConsoleColor.Gray;
