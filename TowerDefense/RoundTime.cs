@@ -34,11 +34,11 @@ namespace TowerDefense
 
         private void CheckWaveTime(object source, ElapsedEventArgs e)
         {
-            Count++;
+            Count--;
 
-            if (Count > 20)
+            if (Count < 1)
             {
-                Count = 0;
+                Count = 60;
             }
 
 

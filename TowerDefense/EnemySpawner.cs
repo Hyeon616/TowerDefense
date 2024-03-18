@@ -7,7 +7,7 @@ namespace TowerDefense.Spawner
     internal class EnemySpawner
     {
         public static System.Timers.Timer SpawnTime = new System.Timers.Timer();
-        public static RoundTime roundTime = new RoundTime(0, 60, 500);
+        public static RoundTime roundTime = new RoundTime(60, 0, 500);
 
         public static List<Enemy> enemies = new List<Enemy>();
 
@@ -31,7 +31,7 @@ namespace TowerDefense.Spawner
         private static void AddEnemy(object sender, ElapsedEventArgs e)
         {
 
-            if (level == 1 && roundTime.Count > 15 && enemies.Count < 4)
+            if (level == 1 && roundTime.Count < 4 && enemies.Count < 4)
             {
                 enemies.Add(new Enemy(0, 0, 100));
             }
