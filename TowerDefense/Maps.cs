@@ -1,6 +1,4 @@
-﻿using System;
-using System.Text;
-using TowerDefense.Unit;
+﻿using TowerDefense.Unit;
 
 namespace TowerDefense.Map
 {
@@ -9,15 +7,30 @@ namespace TowerDefense.Map
         public const int mapWidth = 12;
         public const int mapHeight = 12;
 
-
         public enum MapState
         {
             LINE,
             BUILD,
-            STAR,
-            SPADE,
-            MUSIC,
-            LASOR,
+            NORMALSTAR,
+            NORMALSPADE,
+            NORMALMUSIC,
+            NORMALLASOR,
+            MAGICSTAR,
+            MAGICSPADE,
+            MAGICMUSIC,
+            MAGICLASOR,
+            RARESTAR,
+            RARESPADE,
+            RAREMUSIC,
+            RARELASOR,
+            EPICSTAR,
+            EPICSPADE,
+            EPICMUSIC,
+            EPICLASOR,
+            LEGENDSTAR,
+            LEGENDSPADE,
+            LEGENDMUSIC,
+            LEGENDLASOR
 
         }
 
@@ -51,45 +64,116 @@ namespace TowerDefense.Map
         public static void PrintMap(Player player, List<Enemy> enemies)
         {
             char[,] displayMap = new char[map.GetLength(0), map.GetLength(1)];
-
+            int grade = 0;
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
+                    MapState setMapImage = (MapState)map[i, j];
 
-                    if (i == player.X && j == player.Y)
+                    switch (setMapImage)
                     {
-                        displayMap[i, j] = playerImage;
+                        // 라인, 건설
+                        case MapState.LINE:
+                            displayMap[i, j] = lineImage;
+                            break;
+                        case MapState.BUILD:
+                            displayMap[i, j] = buildImage;
+                            grade = 1;
+                            break;
 
-                    }
-                    else if((MapState)map[i, j] == MapState.LINE)
-                    {
-                        
-                        displayMap[i, j] = lineImage;
-                    }
-                    else if ((MapState)map[i, j] == MapState.BUILD)
-                    {
-                        displayMap[i, j] = buildImage;
-                    }
-                    else if ((MapState)map[i, j] == MapState.STAR)
-                    {
-                        displayMap[i, j] = starImage;
-                    }
-                    else if ((MapState)map[i, j] == MapState.SPADE)
-                    {
-                        displayMap[i, j] = spadeImage;
-                    }
-                    else if ((MapState)map[i, j] == MapState.MUSIC)
-                    {
-                        
-                        displayMap[i, j] = musicImage;
-                    }
-                    else if ((MapState)map[i, j] == MapState.LASOR)
-                    {
+                        // 노말 타워
+                        case MapState.NORMALSTAR:
+                            displayMap[i, j] = starImage;
+                            grade = 1;
+                            break;
+                        case MapState.NORMALSPADE:
+                            displayMap[i, j] = spadeImage;
+                            grade = 1;
+                            break;
+                        case MapState.NORMALMUSIC:
+                            displayMap[i, j] = musicImage;
+                            grade = 1;
+                            break;
+                        case MapState.NORMALLASOR:
+                            displayMap[i, j] = lasorImage;
+                            grade = 1;
+                            break;
 
-                        displayMap[i, j] = lasorImage;
+                        // 매직 타워
+                        case MapState.MAGICSTAR:
+                            displayMap[i, j] = starImage;
+                            grade = 2;
+                            break;
+                        case MapState.MAGICSPADE:
+                            displayMap[i, j] = spadeImage;
+                            grade = 2;
+                            break;
+                        case MapState.MAGICMUSIC:
+                            displayMap[i, j] = musicImage;
+                            grade = 2;
+                            break;
+                        case MapState.MAGICLASOR:
+                            displayMap[i, j] = lasorImage;
+                            grade = 2;
+                            break;
+
+                        // 레어 타워
+                        case MapState.RARESTAR:
+                            displayMap[i, j] = starImage;
+                            grade = 2;
+                            break;
+                        case MapState.RARESPADE:
+                            displayMap[i, j] = spadeImage;
+                            grade = 2;
+                            break;
+                        case MapState.RAREMUSIC:
+                            displayMap[i, j] = musicImage;
+                            grade = 2;
+                            break;
+                        case MapState.RARELASOR:
+                            displayMap[i, j] = lasorImage;
+                            grade = 2;
+                            break;
+
+                        // 에픽 타워
+                        case MapState.EPICSTAR:
+                            displayMap[i, j] = starImage;
+                            grade = 2;
+                            break;
+                        case MapState.EPICSPADE:
+                            displayMap[i, j] = spadeImage;
+                            grade = 2;
+                            break;
+                        case MapState.EPICMUSIC:
+                            displayMap[i, j] = musicImage;
+                            grade = 2;
+                            break;
+                        case MapState.EPICLASOR:
+                            displayMap[i, j] = lasorImage;
+                            grade = 2;
+                            break;
+
+                        // 전설 타워
+                        case MapState.LEGENDSTAR:
+                            displayMap[i, j] = starImage;
+                            grade = 2;
+                            break;
+                        case MapState.LEGENDSPADE:
+                            displayMap[i, j] = spadeImage;
+                            grade = 2;
+                            break;
+                        case MapState.LEGENDMUSIC:
+                            displayMap[i, j] = musicImage;
+                            grade = 2;
+                            break;
+                        case MapState.LEGENDLASOR:
+                            displayMap[i, j] = lasorImage;
+                            grade = 2;
+                            break;
                     }
+
                     foreach (var enemy in enemies)
                     {
                         if (i == enemy.X && j == enemy.Y)
@@ -98,66 +182,62 @@ namespace TowerDefense.Map
                         }
                     }
 
+                    if (i == player.X && j == player.Y)
+                    {
+                        displayMap[i, j] = playerImage;
+
+                    }
+
                 }
                 
             }
-
+            
             for (int i = 0; i < displayMap.GetLength(0); i++)
             {
                 for (int j = 0; j < displayMap.GetLength(1); j++)
                 {
+                    char displayMapImage = displayMap[i, j];
 
-                    if (displayMap[i,j] == lineImage)
+                    ConsoleColor color = ConsoleColor.White;
+                    switch (displayMapImage)
                     {
-                        Console.ForegroundColor = ConsoleColor.Gray;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
+                        case lineImage:
+                            color = ConsoleColor.Gray;
+                            break;
+                        case buildImage:
+                            color = ConsoleColor.Yellow;
+                            break;
+                        case enemyImage:
+                            color = ConsoleColor.Red;
+                            break;
+                        case playerImage:
+                            color = ConsoleColor.Blue;
+                            break;
+                        case starImage:
+                            if (grade == 1)
+                                color = ConsoleColor.DarkYellow;
+                            break;
+                        case spadeImage:
+                            if (grade == 1)
+                                color = ConsoleColor.DarkYellow;
+                            break;
+                        case musicImage:
+                            if (grade == 1)
+                                color = ConsoleColor.DarkYellow;
+                            break;
+                        case lasorImage:
+                            if (grade == 1)
+                                color = ConsoleColor.DarkYellow;
+                            break;
+                        
+                    }
 
-                    }
-                    else if(displayMap[i, j] == buildImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == enemyImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == playerImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Blue;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == spadeImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == starImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == musicImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkCyan;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    else if (displayMap[i, j] == lasorImage)
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkRed;
-                        Console.Write(displayMap[i, j]);
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
+                    Console.ForegroundColor = color;
+                    Console.Write(displayMapImage);
+
                 }
                 Console.WriteLine();
+                Console.ResetColor();
             }
 
 

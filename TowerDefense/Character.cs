@@ -1,6 +1,8 @@
 ﻿using System.Timers;
-using TowerDefense.RandomTower;
+using TowerDefense.Map;
+using TowerDefense.TowerManager;
 using TowerDefense.Spawner;
+using System.Net;
 
 namespace TowerDefense.Unit
 {
@@ -15,6 +17,12 @@ namespace TowerDefense.Unit
             X = newX;
             Y = newY;
         }
+
+        public bool IsMoveValid(int x, int y)
+        {
+            return x >= 0 && x < Maps.mapWidth && y >= 0 && y < Maps.mapHeight;
+        }
+
     }
 
     public class Player : Unit
@@ -31,29 +39,31 @@ namespace TowerDefense.Unit
     }
     public class Enemy : Unit
     {
+        public int ID {  get; set; }
 
-        public Enemy(int x, int y, int hp)
+        public Enemy(int x, int y, int id,int hp)
         {
             X = x;
             Y = y;
+            ID = id;
             Hp = hp;
         }
 
     }
 
 
-
-
     public class Tower : Unit
     {
         public int Atk { get; set; }
         public int AttackSpeed {  get; set; }
+        public int Grade { get; set; }
         public System.Timers.Timer AttackTimer { get; set; }
-        public Tower(int x, int y, int atk, int attackSpeed)
+        public Tower(int x, int y, int atk, int attackSpeed, int grade)
         {
             X = x;
             Y = y;
             Atk = atk;
+            Grade = grade;
             AttackTimer = new System.Timers.Timer(attackSpeed);
             AttackTimer.Elapsed += AttackEnemy;
             AttackTimer.AutoReset = true;
@@ -72,17 +82,15 @@ namespace TowerDefense.Unit
 
         public static void AttackEnemy(object source, ElapsedEventArgs e)
         {
-            if (SetTower.towerGroup.Count != 0)
-            {
-                foreach (Tower tower in SetTower.towerGroup)
-                {
 
+            if (RandomTower.towerGroup.Count != 0)
+            {
+                foreach (Tower tower in RandomTower.towerGroup)
+                {
                     foreach (var enemy in EnemySpawner.enemies)
                     {
-
                         int distanceX = Math.Abs(tower.X - enemy.X);
                         int distanceY = Math.Abs(tower.Y - enemy.Y);
-
 
                         if (distanceX <= 2 && distanceY <= 2)
                         {
@@ -93,6 +101,7 @@ namespace TowerDefense.Unit
                 }
             }
         }
+
 
 
     }
