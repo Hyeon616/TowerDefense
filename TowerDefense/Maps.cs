@@ -13,23 +13,23 @@ namespace TowerDefense.Map
             BUILD,
             NORMALSTAR,
             NORMALSPADE,
-            NORMALMUSIC,
+            NORMALHEART,
             NORMALLASOR,
             MAGICSTAR,
             MAGICSPADE,
-            MAGICMUSIC,
+            MAGICHEART,
             MAGICLASOR,
             RARESTAR,
             RARESPADE,
-            RAREMUSIC,
+            RAREHEART,
             RARELASOR,
             EPICSTAR,
             EPICSPADE,
-            EPICMUSIC,
+            EPICHEART,
             EPICLASOR,
             LEGENDSTAR,
             LEGENDSPADE,
-            LEGENDMUSIC,
+            LEGENDHEART,
             LEGENDLASOR
 
         }
@@ -38,7 +38,7 @@ namespace TowerDefense.Map
         public const char buildImage = '■';
         public const char starImage = '★';
         public const char spadeImage = '♠';
-        public const char musicImage = '♬';
+        public const char heartImage = '♥';
         public const char lasorImage = '◈';
         public const char playerImage = '▣';
         public const char enemyImage = '●';
@@ -92,8 +92,8 @@ namespace TowerDefense.Map
                             displayMap[i, j] = spadeImage;
                             grade = 1;
                             break;
-                        case MapState.NORMALMUSIC:
-                            displayMap[i, j] = musicImage;
+                        case MapState.NORMALHEART:
+                            displayMap[i, j] = heartImage;
                             grade = 1;
                             break;
                         case MapState.NORMALLASOR:
@@ -110,8 +110,8 @@ namespace TowerDefense.Map
                             displayMap[i, j] = spadeImage;
                             grade = 2;
                             break;
-                        case MapState.MAGICMUSIC:
-                            displayMap[i, j] = musicImage;
+                        case MapState.MAGICHEART:
+                            displayMap[i, j] = heartImage;
                             grade = 2;
                             break;
                         case MapState.MAGICLASOR:
@@ -128,8 +128,8 @@ namespace TowerDefense.Map
                             displayMap[i, j] = spadeImage;
                             grade = 2;
                             break;
-                        case MapState.RAREMUSIC:
-                            displayMap[i, j] = musicImage;
+                        case MapState.RAREHEART:
+                            displayMap[i, j] = heartImage;
                             grade = 2;
                             break;
                         case MapState.RARELASOR:
@@ -146,8 +146,8 @@ namespace TowerDefense.Map
                             displayMap[i, j] = spadeImage;
                             grade = 2;
                             break;
-                        case MapState.EPICMUSIC:
-                            displayMap[i, j] = musicImage;
+                        case MapState.EPICHEART:
+                            displayMap[i, j] = heartImage;
                             grade = 2;
                             break;
                         case MapState.EPICLASOR:
@@ -164,8 +164,8 @@ namespace TowerDefense.Map
                             displayMap[i, j] = spadeImage;
                             grade = 2;
                             break;
-                        case MapState.LEGENDMUSIC:
-                            displayMap[i, j] = musicImage;
+                        case MapState.LEGENDHEART:
+                            displayMap[i, j] = heartImage;
                             grade = 2;
                             break;
                         case MapState.LEGENDLASOR:
@@ -221,7 +221,7 @@ namespace TowerDefense.Map
                             if (grade == 1)
                                 color = ConsoleColor.DarkYellow;
                             break;
-                        case musicImage:
+                        case heartImage:
                             if (grade == 1)
                                 color = ConsoleColor.DarkYellow;
                             break;

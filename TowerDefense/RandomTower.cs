@@ -37,8 +37,8 @@ namespace TowerDefense.TowerManager
                     towerName = "[노말] 스페이드 타워";
                     Input.player.Money -= 100;
                     break;
-                case Maps.MapState.NORMALMUSIC:
-                    towerName = "[노말] 음악 타워";
+                case Maps.MapState.NORMALHEART:
+                    towerName = "[노말] 하트 타워";
                     Input.player.Money -= 100;
                     break;
                 case Maps.MapState.NORMALLASOR:
@@ -51,40 +51,55 @@ namespace TowerDefense.TowerManager
                     towerName = "[매직] 별 타워";
                     break;
                 case Maps.MapState.MAGICSPADE:
+                    towerName = "[매직] 스페이드 타워";
                     break;
-                case Maps.MapState.MAGICMUSIC:
+                case Maps.MapState.MAGICHEART:
+                    towerName = "[매직] 하트 타워";
                     break;
                 case Maps.MapState.MAGICLASOR:
+                    towerName = "[매직] 레이저 타워";
                     break;
 
                 // 레어 타워
                 case Maps.MapState.RARESTAR:
+                    towerName = "[레어] 별 타워";
                     break;
                 case Maps.MapState.RARESPADE:
+                    towerName = "[레어] 스페이드 타워";
                     break;
-                case Maps.MapState.RAREMUSIC:
+                case Maps.MapState.RAREHEART:
+                    towerName = "[레어] 하트 타워";
                     break;
                 case Maps.MapState.RARELASOR:
+                    towerName = "[레어] 레이저 타워";
                     break;
 
                 // 에픽 타워
                 case Maps.MapState.EPICSTAR:
+                    towerName = "[에픽] 별 타워";
                     break;
                 case Maps.MapState.EPICSPADE:
+                    towerName = "[에픽] 스페이드 타워";
                     break;
-                case Maps.MapState.EPICMUSIC:
+                case Maps.MapState.EPICHEART:
+                    towerName = "[에픽] 하트 타워";
                     break;
                 case Maps.MapState.EPICLASOR:
+                    towerName = "[에픽] 레이저 타워";
                     break;
 
                 // 전설 타워
                 case Maps.MapState.LEGENDSTAR:
+                    towerName = "[전설] 별 타워";
                     break;
                 case Maps.MapState.LEGENDSPADE:
+                    towerName = "[전설] 스페이드 타워";
                     break;
-                case Maps.MapState.LEGENDMUSIC:
+                case Maps.MapState.LEGENDHEART:
+                    towerName = "[전설] 하트 타워";
                     break;
                 case Maps.MapState.LEGENDLASOR:
+                    towerName = "[전설] 레이저 타워";
                     break;
             }
 
@@ -93,32 +108,42 @@ namespace TowerDefense.TowerManager
 
         }
 
-        public static void TowerMix()
+        public static void TowerMix(int grade, Maps.MapState currentGrageTower, Maps.MapState nextGrageTower)
         {
-            int count = 0;
+
+            List<Tower> gradeUpTower = new List<Tower>();
             for (int i = 0; i < Maps.map.GetLength(0); i++)
             {
                 for (int j = 0; j < Maps.map.GetLength(1); j++)
                 {
                     Maps.MapState checkTower = (Maps.MapState)Maps.map[i, j];
-                    
-                    foreach (var t in towerGroup)
-                    {
-                        if (checkTower == Maps.MapState.NORMALMUSIC && t.Grade==1)
-                        {
-                            count++;
 
-                            if(count==2)
-                            {
-                                if(t.Grade == 1)
-                                    towerGroup.Remove(t);
-                            }
+                    foreach (var tower in towerGroup)
+                    {
+                        if (checkTower == currentGrageTower && tower.Grade == grade)
+                        {
+                            gradeUpTower.Add(tower);
+
+                            if (gradeUpTower.Count > 1)
+                                break;
 
                         }
                     }
 
+                    if (gradeUpTower.Count > 1)
+                    {
+                        foreach (var tower in gradeUpTower)
+                        {
+                            //Maps.map[Input.player.X, Input.player.Y] = (int)nextGrageTower;
+                            //SpawnTower();
+                        }
+
+                    }
                 }
             }
+
+
+
         }
     }
 }

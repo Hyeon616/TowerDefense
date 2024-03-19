@@ -1,12 +1,12 @@
 ﻿using TowerDefense.Map;
-using TowerDefense.Unit;
 using TowerDefense.TowerManager;
+using TowerDefense.Unit;
 
 namespace TowerDefense.Control
 {
     internal class Input
     {
-        
+
         public static Player player = new Player(5, 5);
 
         public static void PlayerInput(ConsoleKeyInfo keyInfo, Player player, List<Tower> towerLevel)
@@ -37,13 +37,13 @@ namespace TowerDefense.Control
                         switch (RandomTower.BuildTowerNumber())
                         {
                             case (int)Maps.MapState.NORMALSTAR:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALSTAR, 10, 1000,1);
+                                RandomTower.SpawnTower(Maps.MapState.NORMALSTAR, 10, 1000, 1);
                                 break;
                             case (int)Maps.MapState.NORMALSPADE:
                                 RandomTower.SpawnTower(Maps.MapState.NORMALSPADE, 10, 1000, 1);
                                 break;
-                            case (int)Maps.MapState.NORMALMUSIC:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALMUSIC, 10, 1000, 1);
+                            case (int)Maps.MapState.NORMALHEART:
+                                RandomTower.SpawnTower(Maps.MapState.NORMALHEART, 10, 1000, 1);
                                 break;
                             case (int)Maps.MapState.NORMALLASOR:
                                 RandomTower.SpawnTower(Maps.MapState.NORMALLASOR, 10, 1000, 1);
@@ -61,7 +61,7 @@ namespace TowerDefense.Control
                     else if (Maps.map[player.X, player.Y] == 0)
                     {
                         Console.SetCursorPosition(15, 16);
-                        Console.WriteLine("거기는 건설할 수 없습니다.            ");
+                        Console.WriteLine("그곳은 건설할 수 없습니다.            ");
                         break;
                     }
                     break;
@@ -75,15 +75,75 @@ namespace TowerDefense.Control
                         player.Money += 50;
                     }
                     break;
-                // 타워 업그레이드
+                    // 타워 조합
+                    
                 case ConsoleKey.Q:
+                    if (Maps.map[player.X, player.Y] > 0)
+                    {
+                        switch ((Maps.MapState)Maps.map[player.X, player.Y])
+                        {
+                            case Maps.MapState.LINE:
+                                Console.SetCursorPosition(15, 16);
+                                Console.WriteLine("그곳은 건설할 수 없습니다.            ");
+                                break;
+                            case Maps.MapState.BUILD:
+                                Console.SetCursorPosition(15, 16);
+                                Console.WriteLine("그곳은 타워가 없습니다.");
+                                break;
 
+                            case Maps.MapState.NORMALSTAR:
+                                RandomTower.TowerMix(1, Maps.MapState.NORMALSTAR, Maps.MapState.MAGICSTAR);
+                                break;
+                            case Maps.MapState.NORMALSPADE:
+                                break;
+                            case Maps.MapState.NORMALHEART:
+                                break;
+                            case Maps.MapState.NORMALLASOR:
+                                break;
+                            case Maps.MapState.MAGICSTAR:
+                                break;
+                            case Maps.MapState.MAGICSPADE:
+                                break;
+                            case Maps.MapState.MAGICHEART:
+                                break;
+                            case Maps.MapState.MAGICLASOR:
+                                break;
+                            case Maps.MapState.RARESTAR:
+                                break;
+                            case Maps.MapState.RARESPADE:
+                                break;
+                            case Maps.MapState.RAREHEART:
+                                break;
+                            case Maps.MapState.RARELASOR:
+                                break;
+                            case Maps.MapState.EPICSTAR:
+                                break;
+                            case Maps.MapState.EPICSPADE:
+                                break;
+                            case Maps.MapState.EPICHEART:
+                                break;
+                            case Maps.MapState.EPICLASOR:
+                                break;
+                            case Maps.MapState.LEGENDSTAR:
+                                break;
+                            case Maps.MapState.LEGENDSPADE:
+                                break;
+                            case Maps.MapState.LEGENDHEART:
+                                break;
+                            case Maps.MapState.LEGENDLASOR:
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    
                     break;
+
             }
 
         }
 
-        
+
 
 
     }

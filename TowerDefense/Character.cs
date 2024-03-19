@@ -33,7 +33,7 @@ namespace TowerDefense.Unit
         {
             X = x;
             Y = y;
-            Money = 200;
+            Money = 50000;
             Hp = 40;
         }
     }
