@@ -66,7 +66,7 @@ namespace TowerDefense.Unit
             Grade = grade;
             AttackTimer = new System.Timers.Timer(attackSpeed);
             AttackTimer.Elapsed += AttackEnemy;
-            AttackTimer.AutoReset = true;
+            //AttackTimer.AutoReset = true;
 
         }
 

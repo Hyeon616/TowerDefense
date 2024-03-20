@@ -35,7 +35,7 @@ namespace TowerDefense
 
                 foreach (Tower tower in TowerManager.RandomTower.towerGroup)
                 {
-                    tower.StartAttack();
+                    //tower.StartAttack();
                 }
 
                 EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);

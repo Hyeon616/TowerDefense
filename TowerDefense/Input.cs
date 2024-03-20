@@ -37,16 +37,16 @@ namespace TowerDefense.Control
                         switch (RandomTower.BuildTowerNumber())
                         {
                             case (int)Maps.MapState.NORMALSTAR:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALSTAR, 10, 1000, 1);
+                                RandomTower.TowerSpawn(Maps.MapState.NORMALSTAR, 10, 1000, 1);
                                 break;
                             case (int)Maps.MapState.NORMALSPADE:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALSPADE, 10, 1000, 1);
+                                RandomTower.TowerSpawn(Maps.MapState.NORMALSPADE, 10, 1000, 1);
                                 break;
                             case (int)Maps.MapState.NORMALHEART:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALHEART, 10, 1000, 1);
+                                RandomTower.TowerSpawn(Maps.MapState.NORMALHEART, 10, 1000, 1);
                                 break;
                             case (int)Maps.MapState.NORMALLASOR:
-                                RandomTower.SpawnTower(Maps.MapState.NORMALLASOR, 10, 1000, 1);
+                                RandomTower.TowerSpawn(Maps.MapState.NORMALLASOR, 10, 1000, 1);
                                 break;
                             default:
                                 break;
@@ -92,13 +92,16 @@ namespace TowerDefense.Control
                                 break;
 
                             case Maps.MapState.NORMALSTAR:
-                                RandomTower.TowerMix(1, Maps.MapState.NORMALSTAR, Maps.MapState.MAGICSTAR);
+                                RandomTower.MixTowerSpawn(1, Maps.MapState.NORMALSTAR, Maps.MapState.MAGICSTAR);
                                 break;
                             case Maps.MapState.NORMALSPADE:
+                                RandomTower.MixTowerSpawn(1, Maps.MapState.NORMALSPADE, Maps.MapState.MAGICSPADE);
                                 break;
                             case Maps.MapState.NORMALHEART:
+                                RandomTower.MixTowerSpawn(1, Maps.MapState.NORMALHEART, Maps.MapState.MAGICHEART);
                                 break;
                             case Maps.MapState.NORMALLASOR:
+                                RandomTower.MixTowerSpawn(1, Maps.MapState.NORMALLASOR, Maps.MapState.MAGICLASOR);
                                 break;
                             case Maps.MapState.MAGICSTAR:
                                 break;

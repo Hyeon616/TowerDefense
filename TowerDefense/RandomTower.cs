@@ -19,7 +19,7 @@ namespace TowerDefense.TowerManager
 
             return randomTower;
         }
-        public static void SpawnTower(Maps.MapState towerState, int towerAtkDamage, int towerAtkSpeed, int towerGrade)
+        public static void TowerSpawn(Maps.MapState towerState, int towerAtkDamage, int towerAtkSpeed, int towerGrade)
         {
             Maps.map[Input.player.X, Input.player.Y] = (int)towerState;
             towerGroup.Add(new Tower(Input.player.X, Input.player.Y, towerAtkDamage, towerAtkSpeed, towerGrade));
@@ -106,9 +106,15 @@ namespace TowerDefense.TowerManager
             Console.SetCursorPosition(15, 16);
             Console.WriteLine($"{towerName} 건설                       ");
 
+            foreach (var tower in towerGroup)
+            {
+                tower.StartAttack();
+            }
+
+
         }
 
-        public static void TowerMix(int grade, Maps.MapState currentGrageTower, Maps.MapState nextGrageTower)
+        public static void MixTowerSpawn(int grade, Maps.MapState currentGrageTower, Maps.MapState nextGrageTower)
         {
 
             List<Tower> gradeUpTower = new List<Tower>();
@@ -134,8 +140,9 @@ namespace TowerDefense.TowerManager
                     {
                         foreach (var tower in gradeUpTower)
                         {
-                            //Maps.map[Input.player.X, Input.player.Y] = (int)nextGrageTower;
-                            //SpawnTower();
+                            tower.StopAttack();
+                            towerGroup.Remove(tower);
+                            TowerSpawn(nextGrageTower, tower.Atk+10,tower.AttackSpeed,tower.Grade+1);
                         }
 
                     }

@@ -10,11 +10,5 @@ namespace TowerDefense
             GameManager.GameStart();
             
         }
-
-
-
-
-
-
     }
 }
