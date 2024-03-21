@@ -215,7 +215,9 @@ namespace TowerDefense.Control
                                 break;
                         }
                     }
-
+                    break;
+                default:
+                    Console.SetCursorPosition(0, 28);
                     break;
 
             }

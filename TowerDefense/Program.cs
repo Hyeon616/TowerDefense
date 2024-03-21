@@ -7,6 +7,11 @@ namespace TowerDefense
         static void Main(string[] args)
         {
             
+            Console.SetWindowSize(80, 40);
+
+
+            GameManager.Menu();
+
             GameManager.GameStart();
             
         }

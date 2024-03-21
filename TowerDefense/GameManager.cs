@@ -9,15 +9,28 @@ namespace TowerDefense
 {
     internal class GameManager
     {
+        public static void Menu()
+        {
+            while (true)
+            {
+                Console.SetCursorPosition(0, 0);
+                UI.MainMenu();
+
+            }
+            
+        }
+
+
+
 
         public static void GameStart()
         {
-            Console.CursorVisible = false;
-            Console.SetWindowSize(80, 40);
+            
 
             
             while (true)
             {
+                Console.CursorVisible = false;
                 Console.SetCursorPosition(0, 0);
                 Maps.PrintMap(Input.player, EnemySpawner.enemies);
 
@@ -30,8 +43,10 @@ namespace TowerDefense
 
                 if (Console.KeyAvailable)
                 {
+                    Console.SetCursorPosition(0, 30);
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
-                    Input.PlayerInput(keyInfo, Input.player, TowerManager.RandomTower.towerGroup);
+                    Input.PlayerInput(keyInfo, Input.player, RandomTower.towerGroup);
+                    
                 }
                 
                 RandomTower.TowerAttack();

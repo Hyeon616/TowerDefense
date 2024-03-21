@@ -32,88 +32,157 @@ namespace TowerDefense.TowerManager
             Maps.map[Input.player.X, Input.player.Y] = (int)spawnTowerName;
 
             string towerName = "";
+            string towerGradeColor = "";
+            ConsoleColor towerColor = ConsoleColor.White;
 
             switch (spawnTowerName)
             {
                 // 노말 타워
                 case Maps.MapState.NORMALCONSONANT:
-                    towerName = "[노말] 자음 타워";
+                case Maps.MapState.NORMALWORD:
+                case Maps.MapState.NORMALALPHA:
+                case Maps.MapState.NORMALLASOR:
+                    towerColor = ConsoleColor.DarkGray;
+                    break;
+
+                // 매직 타워
+                case Maps.MapState.MAGICCONSONANT:
+                case Maps.MapState.MAGICWORD:
+                case Maps.MapState.MAGICALPHA:
+                case Maps.MapState.MAGICLASOR:
+                    towerColor = ConsoleColor.DarkGreen;
+                    break;
+                
+                // 레어 타워
+                case Maps.MapState.RARECONSONANT:
+                case Maps.MapState.RAREWORD:
+                case Maps.MapState.RAREALPHA:
+                case Maps.MapState.RARELASOR:
+                    towerColor = ConsoleColor.DarkBlue;
+                    break;
+
+                // 에픽 타워
+                case Maps.MapState.EPICCONSONANT:
+                case Maps.MapState.EPICWORD:
+                case Maps.MapState.EPICALPHA:
+                case Maps.MapState.EPICLASOR:
+                    towerColor = ConsoleColor.DarkMagenta;
+                    break;
+
+                // 전설 타워
+                case Maps.MapState.LEGENDCONSONANT:
+                case Maps.MapState.LEGENDWORD:
+                case Maps.MapState.LEGENDALPHA:
+                case Maps.MapState.LEGENDLASOR:
+                    towerColor = ConsoleColor.DarkRed;
+                    break;
+                
+            }
+
+            Console.ForegroundColor = towerColor;
+
+            switch (spawnTowerName)
+            {
+                // 노말 타워
+                case Maps.MapState.NORMALCONSONANT:
+                    towerGradeColor = "[노말] ";
+                    towerName = "자음 타워";
                     Input.player.Money -= 100;
                     break;
                 case Maps.MapState.NORMALWORD:
-                    towerName = "[노말] 단어 타워";
+                    towerGradeColor = "[노말] ";
+                    towerName = "단어 타워";
                     Input.player.Money -= 100;
                     break;
                 case Maps.MapState.NORMALALPHA:
-                    towerName = "[노말] 알파벳 타워";
+                    towerGradeColor = "[노말] ";
+                    towerName = "알파벳 타워";
                     Input.player.Money -= 100;
                     break;
                 case Maps.MapState.NORMALLASOR:
-                    towerName = "[노말] 숫자 타워";
+                    towerGradeColor = "[노말] ";
+                    towerName = "숫자 타워";
                     Input.player.Money -= 100;
                     break;
 
                 // 매직 타워
                 case Maps.MapState.MAGICCONSONANT:
-                    towerName = "[매직] 자음 타워";
+                    towerGradeColor = "[매직] ";
+                    towerName = "자음 타워";
                     break;
                 case Maps.MapState.MAGICWORD:
-                    towerName = "[매직] 단어 타워";
+                    towerGradeColor = "[매직] ";
+                    towerName = "단어 타워";
                     break;
                 case Maps.MapState.MAGICALPHA:
-                    towerName = "[매직] 알파벳 타워";
+                    towerGradeColor = "[매직] ";
+                    towerName = "알파벳 타워";
                     break;
                 case Maps.MapState.MAGICLASOR:
-                    towerName = "[매직] 숫자 타워";
+                    towerGradeColor = "[매직] ";
+                    towerName = "숫자 타워";
                     break;
 
                 // 레어 타워
                 case Maps.MapState.RARECONSONANT:
-                    towerName = "[레어] 자음 타워";
+                    towerGradeColor = "[레어] ";
+                    towerName = "자음 타워";
                     break;
                 case Maps.MapState.RAREWORD:
-                    towerName = "[레어] 단어 타워";
+                    towerGradeColor = "[레어] ";
+                    towerName = "단어 타워";
                     break;
                 case Maps.MapState.RAREALPHA:
-                    towerName = "[레어] 알파벳 타워";
+                    towerGradeColor = "[레어] ";
+                    towerName = "알파벳 타워";
                     break;
                 case Maps.MapState.RARELASOR:
-                    towerName = "[레어] 숫자 타워";
+                    towerGradeColor = "[레어] ";
+                    towerName = "숫자 타워";
                     break;
 
                 // 에픽 타워
                 case Maps.MapState.EPICCONSONANT:
-                    towerName = "[에픽] 자음 타워";
+                    towerGradeColor = "[에픽] ";
+                    towerName = "자음 타워";
                     break;
                 case Maps.MapState.EPICWORD:
-                    towerName = "[에픽] 단어 타워";
+                    towerGradeColor = "[에픽] ";
+                    towerName = "단어 타워";
                     break;
                 case Maps.MapState.EPICALPHA:
-                    towerName = "[에픽] 알파벳 타워";
+                    towerGradeColor = "[에픽] ";
+                    towerName = "알파벳 타워";
                     break;
                 case Maps.MapState.EPICLASOR:
-                    towerName = "[에픽] 숫자 타워";
+                    towerGradeColor = "[에픽] ";
+                    towerName = "숫자 타워";
                     break;
 
                 // 전설 타워
                 case Maps.MapState.LEGENDCONSONANT:
-                    towerName = "[전설] 자음 타워";
+                    towerGradeColor = "[전설] ";
+                    towerName = "자음 타워";
                     break;
                 case Maps.MapState.LEGENDWORD:
-                    towerName = "[전설] 단어 타워";
+                    towerGradeColor = "[전설] ";
+                    towerName = "단어 타워";
                     break;
                 case Maps.MapState.LEGENDALPHA:
-                    towerName = "[전설] 알파벳 타워";
+                    towerGradeColor = "[전설] ";
+                    towerName = "알파벳 타워";
                     break;
                 case Maps.MapState.LEGENDLASOR:
-                    towerName = "[전설] 숫자 타워";
+                    towerGradeColor = "[전설] ";
+                    towerName = "숫자 타워";
                     break;
             }
 
             Console.SetCursorPosition(15, 16);
-            Console.WriteLine($"{towerName} 건설                       ");
-
-
+            Console.Write($"{towerGradeColor}");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"{towerName} ");
+            Console.WriteLine("건설                       ");
         }
 
         public static void TowerAttack()
@@ -164,8 +233,8 @@ namespace TowerDefense.TowerManager
 
             if (gradeUpTower.Count > 1)
             {
-                Tower? firstTower = null;
-                Tower? secondTower = null;
+                Tower firstTower = null;
+                Tower secondTower = null;
 
                 foreach (var tower in gradeUpTower)
                 {
@@ -186,6 +255,11 @@ namespace TowerDefense.TowerManager
                 TowerSpawn(firstTower.Atk + 10, firstTower.Grade + 1, nextGradeTower);
                 return;
             }
+            else
+            {
+                Console.SetCursorPosition(15, 16);
+                Console.WriteLine($"타워를 합성할 수 없습니다.                       ");
+            }    
         }
 
         public static void SellTower()
