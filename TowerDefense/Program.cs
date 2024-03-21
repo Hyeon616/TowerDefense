@@ -6,7 +6,7 @@ namespace TowerDefense
         
         static void Main(string[] args)
         {
-            
+            Console.CursorVisible = false;
             Console.SetWindowSize(80, 40);
 
 

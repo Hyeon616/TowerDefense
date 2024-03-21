@@ -14,26 +14,29 @@ namespace TowerDefense.Map
             NORMALCONSONANT,
             NORMALWORD,
             NORMALALPHA,
-            NORMALLASOR,
+            NORMALNUMBER,
             MAGICCONSONANT,
             MAGICWORD,
             MAGICALPHA,
-            MAGICLASOR,
+            MAGICNUMBER,
             RARECONSONANT,
             RAREWORD,
             RAREALPHA,
-            RARELASOR,
+            RARENUMBER,
             EPICCONSONANT,
             EPICWORD,
             EPICALPHA,
-            EPICLASOR,
+            EPICNUMBER,
             LEGENDCONSONANT,
             LEGENDWORD,
             LEGENDALPHA,
-            LEGENDLASOR,
+            LEGENDNUMBER,
             PLAYER,
-            ENEMY
-
+            ENEMY,
+            MISSION1,
+            MISSION2,
+            MISSION3,
+            MISSION4,
         }
 
         #region ImageDictionary
@@ -58,14 +61,20 @@ namespace TowerDefense.Map
         public static char epicAlphaImage = Images.mapImages[MapState.EPICALPHA];
         public static char legendAlphaImage = Images.mapImages[MapState.LEGENDALPHA];
 
-        public static char normalLasorImage = Images.mapImages[MapState.NORMALLASOR];
-        public static char magicLasorImage = Images.mapImages[MapState.MAGICLASOR];
-        public static char rareLasorImage = Images.mapImages[MapState.RARELASOR];
-        public static char epicLasorImage = Images.mapImages[MapState.EPICLASOR];
-        public static char legendLasorImage = Images.mapImages[MapState.LEGENDLASOR];
+        public static char normalNumberImage = Images.mapImages[MapState.NORMALNUMBER];
+        public static char magicNumberImage = Images.mapImages[MapState.MAGICNUMBER];
+        public static char rareNumberImage = Images.mapImages[MapState.RARENUMBER];
+        public static char epicNumberImage = Images.mapImages[MapState.EPICNUMBER];
+        public static char legendNumberImage = Images.mapImages[MapState.LEGENDNUMBER];
 
         public static char playerImage = Images.mapImages[MapState.PLAYER];
         public static char enemyImage = Images.mapImages[MapState.ENEMY];
+
+        public static char missionEnemyImage1 = Images.mapImages[MapState.MISSION1];
+        public static char missionEnemyImage2 = Images.mapImages[MapState.MISSION2];
+        public static char missionEnemyImage3 = Images.mapImages[MapState.MISSION3];
+        public static char missionEnemyImage4 = Images.mapImages[MapState.MISSION4];
+
         #endregion
 
         public static int[,] map =
@@ -85,7 +94,7 @@ namespace TowerDefense.Map
             };
 
 
-        public static void PrintMap(Player player, List<Enemy> enemies)
+        public static void PrintMap(Player player, List<Enemy> enemies, List<MissionEnemy> missionEnemies)
         {
             char[,] displayMap = new char[map.GetLength(0), map.GetLength(1)];
 
@@ -95,6 +104,7 @@ namespace TowerDefense.Map
                 {
                     MapState setMapImage = (MapState)map[i, j];
 
+                    // 타워, 라인 이미지
                     switch (setMapImage)
                     {
                         // 라인, 건설
@@ -115,8 +125,8 @@ namespace TowerDefense.Map
                         case MapState.NORMALALPHA:
                             displayMap[i, j] = normalAlphaImage;
                             break;
-                        case MapState.NORMALLASOR:
-                            displayMap[i, j] = normalLasorImage;
+                        case MapState.NORMALNUMBER:
+                            displayMap[i, j] = normalNumberImage;
                             break;
 
                         // 매직 타워
@@ -129,8 +139,8 @@ namespace TowerDefense.Map
                         case MapState.MAGICALPHA:
                             displayMap[i, j] = magicAlphaImage;
                             break;
-                        case MapState.MAGICLASOR:
-                            displayMap[i, j] = magicLasorImage;
+                        case MapState.MAGICNUMBER:
+                            displayMap[i, j] = magicNumberImage;
                             break;
 
                         // 레어 타워
@@ -143,8 +153,8 @@ namespace TowerDefense.Map
                         case MapState.RAREALPHA:
                             displayMap[i, j] = rareAlphaImage;
                             break;
-                        case MapState.RARELASOR:
-                            displayMap[i, j] = rareLasorImage;
+                        case MapState.RARENUMBER:
+                            displayMap[i, j] = rareNumberImage;
                             break;
 
                         // 에픽 타워
@@ -157,8 +167,8 @@ namespace TowerDefense.Map
                         case MapState.EPICALPHA:
                             displayMap[i, j] = epicAlphaImage;
                             break;
-                        case MapState.EPICLASOR:
-                            displayMap[i, j] = epicLasorImage;
+                        case MapState.EPICNUMBER:
+                            displayMap[i, j] = epicNumberImage;
                             break;
 
                         // 전설 타워
@@ -171,8 +181,8 @@ namespace TowerDefense.Map
                         case MapState.LEGENDALPHA:
                             displayMap[i, j] = legendAlphaImage;
                             break;
-                        case MapState.LEGENDLASOR:
-                            displayMap[i, j] = legendLasorImage;
+                        case MapState.LEGENDNUMBER:
+                            displayMap[i, j] = legendNumberImage;
                             break;
                     }
 
@@ -182,6 +192,30 @@ namespace TowerDefense.Map
                         if (i == enemy.X && j == enemy.Y)
                         {
                             displayMap[i, j] = enemyImage;
+                        }
+                    }
+                    // 미션 적
+                    foreach (var missionEnemy in missionEnemies)
+                    {
+                        if (i == missionEnemy.X && j == missionEnemy.Y)
+                        {
+                            if(missionEnemy.MissionEnemyName == MapState.MISSION1)
+                            {
+                                displayMap[i, j] = missionEnemyImage1;
+                            }
+                            else if(missionEnemy.MissionEnemyName == MapState.MISSION2)
+                            {
+                                displayMap[i, j] = missionEnemyImage2;
+                            }
+                            else if (missionEnemy.MissionEnemyName == MapState.MISSION3)
+                            {
+                                displayMap[i, j] = missionEnemyImage3;
+                            }
+                            else if (missionEnemy.MissionEnemyName == MapState.MISSION4)
+                            {
+                                displayMap[i, j] = missionEnemyImage4;
+                            }
+
                         }
                     }
 
@@ -221,39 +255,57 @@ namespace TowerDefense.Map
                     {
                         color = ConsoleColor.Blue;
                     }
+                    else if (displayMapImage == missionEnemyImage1)
+                    {
+                        color = ConsoleColor.Cyan;
+                    }
+                    else if (displayMapImage == missionEnemyImage2)
+                    {
+                        color = ConsoleColor.Cyan;
+                    }
+                    else if (displayMapImage == missionEnemyImage3)
+                    {
+                        color = ConsoleColor.DarkCyan;
+                    }
+                    else if (displayMapImage == missionEnemyImage4)
+                    {
+                        color = ConsoleColor.DarkCyan;
+                    }
+
 
                     // 노말
-                    else if (displayMapImage == normalConsonantImage || displayMapImage == normalWordImage || displayMapImage == normalAlphaImage || displayMapImage == normalLasorImage)
+                    else if (displayMapImage == normalConsonantImage || displayMapImage == normalWordImage || displayMapImage == normalAlphaImage || displayMapImage == normalNumberImage)
                     {
                         color = ConsoleColor.DarkGray;
                     }
-                    
+
                     // 매직
-                    else if (displayMapImage == magicConsonantImage || displayMapImage == magicWordImage || displayMapImage == magicAlphaImage || displayMapImage == magicLasorImage)
+                    else if (displayMapImage == magicConsonantImage || displayMapImage == magicWordImage || displayMapImage == magicAlphaImage || displayMapImage == magicNumberImage)
                     {
                         color = ConsoleColor.DarkGreen;
                     }
-                    
+
                     // 레어
-                    else if (displayMapImage == rareConsonantImage || displayMapImage == rareWordImage || displayMapImage == rareAlphaImage || displayMapImage == rareLasorImage)
+                    else if (displayMapImage == rareConsonantImage || displayMapImage == rareWordImage || displayMapImage == rareAlphaImage || displayMapImage == rareNumberImage)
                     {
                         color = ConsoleColor.DarkBlue;
                     }
-                    
+
 
                     // 에픽
-                    else if (displayMapImage == epicConsonantImage || displayMapImage == epicWordImage || displayMapImage == epicAlphaImage || displayMapImage == epicLasorImage)
+                    else if (displayMapImage == epicConsonantImage || displayMapImage == epicWordImage || displayMapImage == epicAlphaImage || displayMapImage == epicNumberImage)
                     {
                         color = ConsoleColor.DarkMagenta;
                     }
-                    
+
                     // 전설
-                    else if (displayMapImage == legendConsonantImage || displayMapImage == legendWordImage || displayMapImage == legendAlphaImage || displayMapImage == legendLasorImage)
+                    else if (displayMapImage == legendConsonantImage || displayMapImage == legendWordImage || displayMapImage == legendAlphaImage || displayMapImage == legendNumberImage)
                     {
                         color = ConsoleColor.DarkRed;
                     }
 
                     Console.ForegroundColor = color;
+                    Console.SetCursorPosition(29+j*2,12+ i);
                     Console.Write(displayMapImage);
                 }
                 Console.WriteLine();

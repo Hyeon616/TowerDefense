@@ -46,7 +46,7 @@ namespace TowerDefense.Cooldown
 
             if (EnemySpawner.enemies.Count > 0)
             {
-                Count = 10;
+                Count = 30;
                 
             }
 
@@ -56,6 +56,42 @@ namespace TowerDefense.Cooldown
                 EnemySpawner.level += 1;
                 
             }
+        }
+    }
+
+    class MissionTimer : Time
+    {
+        
+
+        public MissionTimer(int count, int countdown, int time)
+        {
+            Count = count;
+            Countdown = countdown;
+
+            setTimer = new System.Timers.Timer(time);
+            setTimer.Elapsed += CheckMissionTime;
+            setTimer.AutoReset = true;
+            setTimer.Enabled = true;
+        }
+        private void CheckMissionTime(object source, ElapsedEventArgs e)
+        {
+            if (Count > 0)
+            {
+                Count--;
+
+            }
+            else
+            {
+                Count = 0;
+            }
+            
+            if (EnemySpawner.missionEnemies.Count>0)
+            {
+                
+                Count = 40;
+
+            }
+
         }
     }
 
@@ -81,35 +117,6 @@ namespace TowerDefense.Cooldown
             {
                 Count = 1;
 
-            }
-
-        }
-    }
-
-    class EnemyMoveTimer : Time
-    {
-        public EnemyMoveTimer(int count, int countdown, int time)
-        {
-            Count = count;
-            Countdown = countdown;
-
-            setTimer = new System.Timers.Timer(time);
-            setTimer.Elapsed += EnemyMoveTime;
-            //setTimer.AutoReset = true;
-            setTimer.Enabled = true;
-        }
-        private void EnemyMoveTime(object source, ElapsedEventArgs e)
-        {
-            if (Count > 0)
-            {
-                Count--;
-
-                EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);
-            }
-            else if (Count < 0)
-            {
-                Count = 3;
-                //EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);
             }
 
         }

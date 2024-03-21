@@ -12,10 +12,10 @@ namespace TowerDefense.Unit
         public int Y { get; set; }
         public int Hp { get; set; }
 
-        public void Move(int newX, int newY)
+        public void Move(int x, int y)
         {
-            X = newX;
-            Y = newY;
+            X = x;
+            Y = y;
         }
 
         public bool IsMoveValid(int x, int y)
@@ -51,6 +51,22 @@ namespace TowerDefense.Unit
 
     }
 
+    public class MissionEnemy : Unit
+    {
+        public int Cost { get; set; }
+
+        public Maps.MapState MissionEnemyName { get; set; }
+
+        public MissionEnemy(int x, int y, int hp, int cost, Maps.MapState missionEnemyName)
+        {
+            X = x;
+            Y = y;
+            Hp = hp;
+            Cost = cost;
+            MissionEnemyName = missionEnemyName;
+        }
+
+    }
 
     public class Tower : Unit
     {
