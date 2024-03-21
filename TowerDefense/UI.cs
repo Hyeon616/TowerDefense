@@ -6,6 +6,15 @@ namespace TowerDefense.DisplayMenu
 {
     internal class UI
     {
+        public static void MainMenu()
+        {
+
+
+
+
+
+        }
+
 
         public static void PlayerUI(Player player)
         {

@@ -11,38 +11,62 @@ namespace TowerDefense.Map
         {
             LINE,
             BUILD,
-            NORMALSTAR,
-            NORMALSPADE,
-            NORMALHEART,
+            NORMALCONSONANT,
+            NORMALWORD,
+            NORMALALPHA,
             NORMALLASOR,
-            MAGICSTAR,
-            MAGICSPADE,
-            MAGICHEART,
+            MAGICCONSONANT,
+            MAGICWORD,
+            MAGICALPHA,
             MAGICLASOR,
-            RARESTAR,
-            RARESPADE,
-            RAREHEART,
+            RARECONSONANT,
+            RAREWORD,
+            RAREALPHA,
             RARELASOR,
-            EPICSTAR,
-            EPICSPADE,
-            EPICHEART,
+            EPICCONSONANT,
+            EPICWORD,
+            EPICALPHA,
             EPICLASOR,
-            LEGENDSTAR,
-            LEGENDSPADE,
-            LEGENDHEART,
-            LEGENDLASOR
+            LEGENDCONSONANT,
+            LEGENDWORD,
+            LEGENDALPHA,
+            LEGENDLASOR,
+            PLAYER,
+            ENEMY
 
         }
 
-        public const char lineImage = '□';
-        public const char buildImage = '■';
-        public const char starImage = '★';
-        public const char spadeImage = '♠';
-        public const char heartImage = '♥';
-        public const char lasorImage = '◈';
-        public const char playerImage = '▣';
-        public const char enemyImage = '●';
+        #region ImageDictionary
+        public static char lineImage = Images.mapImages[MapState.LINE];
+        public static char buildImage = Images.mapImages[MapState.BUILD];
 
+        public static char normalConsonantImage = Images.mapImages[MapState.NORMALCONSONANT];
+        public static char magicConsonantImage = Images.mapImages[MapState.MAGICCONSONANT];
+        public static char rareConsonantImage = Images.mapImages[MapState.RARECONSONANT];
+        public static char epicConsonantImage = Images.mapImages[MapState.EPICCONSONANT];
+        public static char legendConsonantImage = Images.mapImages[MapState.LEGENDCONSONANT];
+
+        public static char normalWordImage = Images.mapImages[MapState.NORMALWORD];
+        public static char magicWordImage = Images.mapImages[MapState.MAGICWORD];
+        public static char rareWordImage = Images.mapImages[MapState.RAREWORD];
+        public static char epicWordImage = Images.mapImages[MapState.EPICWORD];
+        public static char legendWordImage = Images.mapImages[MapState.LEGENDWORD];
+
+        public static char normalAlphaImage = Images.mapImages[MapState.NORMALALPHA];
+        public static char magicAlphaImage = Images.mapImages[MapState.MAGICALPHA];
+        public static char rareAlphaImage = Images.mapImages[MapState.RAREALPHA];
+        public static char epicAlphaImage = Images.mapImages[MapState.EPICALPHA];
+        public static char legendAlphaImage = Images.mapImages[MapState.LEGENDALPHA];
+
+        public static char normalLasorImage = Images.mapImages[MapState.NORMALLASOR];
+        public static char magicLasorImage = Images.mapImages[MapState.MAGICLASOR];
+        public static char rareLasorImage = Images.mapImages[MapState.RARELASOR];
+        public static char epicLasorImage = Images.mapImages[MapState.EPICLASOR];
+        public static char legendLasorImage = Images.mapImages[MapState.LEGENDLASOR];
+
+        public static char playerImage = Images.mapImages[MapState.PLAYER];
+        public static char enemyImage = Images.mapImages[MapState.ENEMY];
+        #endregion
 
         public static int[,] map =
             {
@@ -64,7 +88,6 @@ namespace TowerDefense.Map
         public static void PrintMap(Player player, List<Enemy> enemies)
         {
             char[,] displayMap = new char[map.GetLength(0), map.GetLength(1)];
-            int grade = 0;
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -80,100 +103,80 @@ namespace TowerDefense.Map
                             break;
                         case MapState.BUILD:
                             displayMap[i, j] = buildImage;
-                            grade = 1;
                             break;
 
                         // 노말 타워
-                        case MapState.NORMALSTAR:
-                            displayMap[i, j] = starImage;
-                            grade = 1;
+                        case MapState.NORMALCONSONANT:
+                            displayMap[i, j] = normalConsonantImage;
                             break;
-                        case MapState.NORMALSPADE:
-                            displayMap[i, j] = spadeImage;
-                            grade = 1;
+                        case MapState.NORMALWORD:
+                            displayMap[i, j] = normalWordImage;
                             break;
-                        case MapState.NORMALHEART:
-                            displayMap[i, j] = heartImage;
-                            grade = 1;
+                        case MapState.NORMALALPHA:
+                            displayMap[i, j] = normalAlphaImage;
                             break;
                         case MapState.NORMALLASOR:
-                            displayMap[i, j] = lasorImage;
-                            grade = 1;
+                            displayMap[i, j] = normalLasorImage;
                             break;
 
                         // 매직 타워
-                        case MapState.MAGICSTAR:
-                            displayMap[i, j] = starImage;
-                            grade = 2;
+                        case MapState.MAGICCONSONANT:
+                            displayMap[i, j] = magicConsonantImage;
                             break;
-                        case MapState.MAGICSPADE:
-                            displayMap[i, j] = spadeImage;
-                            grade = 2;
+                        case MapState.MAGICWORD:
+                            displayMap[i, j] = magicWordImage;
                             break;
-                        case MapState.MAGICHEART:
-                            displayMap[i, j] = heartImage;
-                            grade = 2;
+                        case MapState.MAGICALPHA:
+                            displayMap[i, j] = magicAlphaImage;
                             break;
                         case MapState.MAGICLASOR:
-                            displayMap[i, j] = lasorImage;
-                            grade = 2;
+                            displayMap[i, j] = magicLasorImage;
                             break;
 
                         // 레어 타워
-                        case MapState.RARESTAR:
-                            displayMap[i, j] = starImage;
-                            grade = 2;
+                        case MapState.RARECONSONANT:
+                            displayMap[i, j] = rareConsonantImage;
                             break;
-                        case MapState.RARESPADE:
-                            displayMap[i, j] = spadeImage;
-                            grade = 2;
+                        case MapState.RAREWORD:
+                            displayMap[i, j] = rareWordImage;
                             break;
-                        case MapState.RAREHEART:
-                            displayMap[i, j] = heartImage;
-                            grade = 2;
+                        case MapState.RAREALPHA:
+                            displayMap[i, j] = rareAlphaImage;
                             break;
                         case MapState.RARELASOR:
-                            displayMap[i, j] = lasorImage;
-                            grade = 2;
+                            displayMap[i, j] = rareLasorImage;
                             break;
 
                         // 에픽 타워
-                        case MapState.EPICSTAR:
-                            displayMap[i, j] = starImage;
-                            grade = 2;
+                        case MapState.EPICCONSONANT:
+                            displayMap[i, j] = epicConsonantImage;
                             break;
-                        case MapState.EPICSPADE:
-                            displayMap[i, j] = spadeImage;
-                            grade = 2;
+                        case MapState.EPICWORD:
+                            displayMap[i, j] = epicWordImage;
                             break;
-                        case MapState.EPICHEART:
-                            displayMap[i, j] = heartImage;
-                            grade = 2;
+                        case MapState.EPICALPHA:
+                            displayMap[i, j] = epicAlphaImage;
                             break;
                         case MapState.EPICLASOR:
-                            displayMap[i, j] = lasorImage;
-                            grade = 2;
+                            displayMap[i, j] = epicLasorImage;
                             break;
 
                         // 전설 타워
-                        case MapState.LEGENDSTAR:
-                            displayMap[i, j] = starImage;
-                            grade = 2;
+                        case MapState.LEGENDCONSONANT:
+                            displayMap[i, j] = legendConsonantImage;
                             break;
-                        case MapState.LEGENDSPADE:
-                            displayMap[i, j] = spadeImage;
-                            grade = 2;
+                        case MapState.LEGENDWORD:
+                            displayMap[i, j] = legendWordImage;
                             break;
-                        case MapState.LEGENDHEART:
-                            displayMap[i, j] = heartImage;
-                            grade = 2;
+                        case MapState.LEGENDALPHA:
+                            displayMap[i, j] = legendAlphaImage;
                             break;
                         case MapState.LEGENDLASOR:
-                            displayMap[i, j] = lasorImage;
-                            grade = 2;
+                            displayMap[i, j] = legendLasorImage;
                             break;
                     }
 
+                    // 적 
                     foreach (var enemy in enemies)
                     {
                         if (i == enemy.X && j == enemy.Y)
@@ -182,6 +185,7 @@ namespace TowerDefense.Map
                         }
                     }
 
+                    // 플레이어
                     if (i == player.X && j == player.Y)
                     {
                         displayMap[i, j] = playerImage;
@@ -189,55 +193,72 @@ namespace TowerDefense.Map
                     }
 
                 }
-                
+
             }
-            
+
             for (int i = 0; i < displayMap.GetLength(0); i++)
             {
                 for (int j = 0; j < displayMap.GetLength(1); j++)
                 {
+
                     char displayMapImage = displayMap[i, j];
 
                     ConsoleColor color = ConsoleColor.White;
-                    switch (displayMapImage)
+
+                    if (displayMapImage == lineImage)
                     {
-                        case lineImage:
-                            color = ConsoleColor.Gray;
-                            break;
-                        case buildImage:
-                            color = ConsoleColor.Yellow;
-                            break;
-                        case enemyImage:
-                            color = ConsoleColor.Red;
-                            break;
-                        case playerImage:
-                            color = ConsoleColor.Blue;
-                            break;
-                        case starImage:
-                            if (grade == 1)
-                                color = ConsoleColor.DarkYellow;
-                            break;
-                        case spadeImage:
-                            if (grade == 1)
-                                color = ConsoleColor.DarkYellow;
-                            break;
-                        case heartImage:
-                            if (grade == 1)
-                                color = ConsoleColor.DarkYellow;
-                            break;
-                        case lasorImage:
-                            if (grade == 1)
-                                color = ConsoleColor.DarkYellow;
-                            break;
-                        
+                        color = ConsoleColor.Gray;
+                    }
+                    else if (displayMapImage == buildImage)
+                    {
+                        color = ConsoleColor.Yellow;
+                    }
+                    else if (displayMapImage == enemyImage)
+                    {
+                        color = ConsoleColor.Red;
+                    }
+                    else if (displayMapImage == playerImage)
+                    {
+                        color = ConsoleColor.Blue;
+                    }
+
+                    // 노말
+                    else if (displayMapImage == normalConsonantImage || displayMapImage == normalWordImage || displayMapImage == normalAlphaImage || displayMapImage == normalLasorImage)
+                    {
+                        color = ConsoleColor.DarkGray;
+                    }
+                    
+                    // 매직
+                    else if (displayMapImage == magicConsonantImage || displayMapImage == magicWordImage || displayMapImage == magicAlphaImage || displayMapImage == magicLasorImage)
+                    {
+                        color = ConsoleColor.DarkGreen;
+                    }
+                    
+                    // 레어
+                    else if (displayMapImage == rareConsonantImage || displayMapImage == rareWordImage || displayMapImage == rareAlphaImage || displayMapImage == rareLasorImage)
+                    {
+                        color = ConsoleColor.DarkBlue;
+                    }
+                    
+
+                    // 에픽
+                    else if (displayMapImage == epicConsonantImage || displayMapImage == epicWordImage || displayMapImage == epicAlphaImage || displayMapImage == epicLasorImage)
+                    {
+                        color = ConsoleColor.DarkMagenta;
+                    }
+                    
+                    // 전설
+                    else if (displayMapImage == legendConsonantImage || displayMapImage == legendWordImage || displayMapImage == legendAlphaImage || displayMapImage == legendLasorImage)
+                    {
+                        color = ConsoleColor.DarkRed;
                     }
 
                     Console.ForegroundColor = color;
                     Console.Write(displayMapImage);
-
                 }
                 Console.WriteLine();
                 Console.ResetColor();
+
             }
 
 

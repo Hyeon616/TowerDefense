@@ -2,6 +2,7 @@
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
 using TowerDefense.Spawner;
+using TowerDefense.TowerManager;
 using TowerDefense.Unit;
 
 namespace TowerDefense
@@ -14,7 +15,7 @@ namespace TowerDefense
             Console.CursorVisible = false;
             Console.SetWindowSize(80, 40);
 
-
+            
             while (true)
             {
                 Console.SetCursorPosition(0, 0);
@@ -32,11 +33,10 @@ namespace TowerDefense
                     ConsoleKeyInfo keyInfo = Console.ReadKey();
                     Input.PlayerInput(keyInfo, Input.player, TowerManager.RandomTower.towerGroup);
                 }
+                
+                RandomTower.TowerAttack();
 
-                foreach (Tower tower in TowerManager.RandomTower.towerGroup)
-                {
-                    //tower.StartAttack();
-                }
+                
 
                 EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);
 

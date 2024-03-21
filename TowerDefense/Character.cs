@@ -57,52 +57,20 @@ namespace TowerDefense.Unit
         public int Atk { get; set; }
         public int AttackSpeed {  get; set; }
         public int Grade { get; set; }
-        public System.Timers.Timer AttackTimer { get; set; }
-        public Tower(int x, int y, int atk, int attackSpeed, int grade)
+        
+        public Maps.MapState TowerName { get; set; }
+        
+        public Tower(int x, int y, int atk, int grade, Maps.MapState towerName)
         {
             X = x;
             Y = y;
             Atk = atk;
             Grade = grade;
-            AttackTimer = new System.Timers.Timer(attackSpeed);
-            AttackTimer.Elapsed += AttackEnemy;
-            //AttackTimer.AutoReset = true;
+            TowerName = towerName;
 
         }
 
-        public void StartAttack()
-        {
-            AttackTimer.Start();
-        }
-
-        public void StopAttack()
-        {
-            AttackTimer.Stop();
-        }
-
-        public static void AttackEnemy(object source, ElapsedEventArgs e)
-        {
-
-            if (RandomTower.towerGroup.Count != 0)
-            {
-                foreach (Tower tower in RandomTower.towerGroup)
-                {
-                    foreach (var enemy in EnemySpawner.enemies)
-                    {
-                        int distanceX = Math.Abs(tower.X - enemy.X);
-                        int distanceY = Math.Abs(tower.Y - enemy.Y);
-
-                        if (distanceX <= 2 && distanceY <= 2)
-                        {
-                            enemy.Hp -= tower.Atk;
-
-                        }
-                    }
-                }
-            }
-        }
-
-
+        
 
     }
 }

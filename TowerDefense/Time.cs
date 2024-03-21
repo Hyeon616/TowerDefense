@@ -1,6 +1,8 @@
 ﻿using System.Timers;
 using TowerDefense.Spawner;
 using TowerDefense.Control;
+using TowerDefense.TowerManager;
+using TowerDefense.Unit;
 
 namespace TowerDefense.Cooldown
 {
@@ -34,7 +36,6 @@ namespace TowerDefense.Cooldown
             setTimer.AutoReset = true;
             setTimer.Enabled = true;
         }
-
         private void CheckWaveTime(object source, ElapsedEventArgs e)
         {
             if (EnemySpawner.enemies.Count == 0)
@@ -55,7 +56,61 @@ namespace TowerDefense.Cooldown
                 EnemySpawner.level += 1;
                 
             }
+        }
+    }
 
+    class AttackTimer : Time
+    {
+        public AttackTimer(int count, int countdown, int time)
+        {
+            Count = count;
+            Countdown = countdown;
+
+            setTimer = new System.Timers.Timer(time);
+            setTimer.Elapsed += TowerAttacktime;
+            setTimer.AutoReset = true;
+            setTimer.Enabled = true;
+        }
+        private void TowerAttacktime(object source, ElapsedEventArgs e)
+        {
+            if (Count >0)
+            {
+                Count--;
+
+            }else if (Count < 0)
+            {
+                Count = 1;
+
+            }
+
+        }
+    }
+
+    class EnemyMoveTimer : Time
+    {
+        public EnemyMoveTimer(int count, int countdown, int time)
+        {
+            Count = count;
+            Countdown = countdown;
+
+            setTimer = new System.Timers.Timer(time);
+            setTimer.Elapsed += EnemyMoveTime;
+            //setTimer.AutoReset = true;
+            setTimer.Enabled = true;
+        }
+        private void EnemyMoveTime(object source, ElapsedEventArgs e)
+        {
+            if (Count > 0)
+            {
+                Count--;
+
+                EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);
+            }
+            else if (Count < 0)
+            {
+                Count = 3;
+                //EnemyMovement.EnemyMove(Input.player, EnemySpawner.enemies);
+            }
 
         }
     }

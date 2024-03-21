@@ -1,4 +1,4 @@
-﻿using TowerDefense.Control;
+﻿using TowerDefense.Cooldown;
 using TowerDefense.Spawner;
 using TowerDefense.Unit;
 
@@ -10,14 +10,15 @@ namespace TowerDefense
         public static bool moveCheck2 = true;
         public static bool moveCheck3 = true;
 
+        //public static EnemyMoveTimer enemyMoveTimer = new EnemyMoveTimer(50, 0, 100);
+
+
         public static void EnemyMove(Player player, List<Enemy> enemies)
         {
             Thread.Sleep(200);
 
-
             List<Enemy> arrivedEnemy = new List<Enemy>();
             List<Enemy> DeadEnemy = new List<Enemy>();
-
 
             if (EnemySpawner.enemies.Count != 0)
             {
@@ -29,7 +30,6 @@ namespace TowerDefense
                         if (enemy.X < 4 && enemy.Y == 0)
                         {
                             ++enemy.X;
-
                         }
                         // 4, 11 까지
                         else if (enemy.X == 4 && enemy.Y < 11 && moveCheck1)
@@ -120,6 +120,9 @@ namespace TowerDefense
                         }
                     }
 
+
+
+
                 }
 
                 foreach (var i in arrivedEnemy)
@@ -133,6 +136,9 @@ namespace TowerDefense
                     UpdateEnemyHpUI();
                 }
             }
+
+
+
 
         }
 
