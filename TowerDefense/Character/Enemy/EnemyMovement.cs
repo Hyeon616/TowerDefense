@@ -1,9 +1,8 @@
-﻿using TowerDefense.Control;
-using TowerDefense.DisplayMenu;
-using TowerDefense.Spawner;
-using TowerDefense.Unit;
+﻿using TowerDefense.DisplayMenu;
+using TowerDefense.Character.EnemySpawn;
+using TowerDefense.Character.PlayerInput;
 
-namespace TowerDefense
+namespace TowerDefense.Character.MoveEnemy
 {
     internal class EnemyMovement
     {
@@ -204,8 +203,13 @@ namespace TowerDefense
                         {
                             arrivedMissionEnemy.Add(missionEnemy);
                         }
-                    }
 
+                        Console.SetCursorPosition(33, 29);
+                        Console.ForegroundColor = ConsoleColor.DarkCyan;
+                        Console.WriteLine($"{missionEnemy.MissionEnemyName} 실패   ");
+                        Console.ResetColor();
+                    }
+                    
                     if (missionEnemy.Hp < 1)
                     {
                         for (int i = 0; i < EnemySpawner.missionEnemies.Count; i++)
@@ -226,6 +230,7 @@ namespace TowerDefense
                     EnemySpawner.missionEnemies.Remove(i);
                     Input.player.Money += i.Cost;
                     UI.UpdateEnemyHpUI();
+
                 }
             }
         }

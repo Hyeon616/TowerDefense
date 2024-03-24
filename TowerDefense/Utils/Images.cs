@@ -1,6 +1,6 @@
 ﻿using TowerDefense.Map;
 
-namespace TowerDefense
+namespace TowerDefense.Utils
 {
     internal class Images
     {

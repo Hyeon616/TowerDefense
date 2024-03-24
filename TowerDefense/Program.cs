@@ -9,7 +9,6 @@ namespace TowerDefense
             Console.CursorVisible = false;
             Console.SetWindowSize(80, 40);
 
-
             GameManager.Menu();
 
             GameManager.GameStart();

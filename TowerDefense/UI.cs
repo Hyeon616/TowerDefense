@@ -1,7 +1,7 @@
-﻿using TowerDefense.Cooldown;
-using TowerDefense.Drawing;
-using TowerDefense.Spawner;
-using TowerDefense.Unit;
+﻿using TowerDefense.Character;
+using TowerDefense.Utils;
+using TowerDefense.Character.EnemySpawn;
+using System.Numerics;
 
 namespace TowerDefense.DisplayMenu
 {
@@ -92,11 +92,16 @@ namespace TowerDefense.DisplayMenu
 
         public static void EnemyHpUI(List<Enemy> enemies)
         {
+            Console.SetCursorPosition(9, 13);
+            Console.Write($" 적 ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(" ♥ ");
+            Console.ResetColor();
+            
             for (int i = 0; i < enemies.Count; i++)
             {
-                Console.SetCursorPosition(2, 16 + i);
+                Console.SetCursorPosition(2, 16 + 2*i);
                 Console.WriteLine($"{enemies[i].ID}번적 체력 : {enemies[i].Hp}    ");
-                Console.WriteLine();
 
             }
         }
@@ -118,6 +123,8 @@ namespace TowerDefense.DisplayMenu
 
         }
 
+        
+
         public static void WaveTimeUI(WaveTimer waveTimer)
         {
             Console.SetCursorPosition(30, 3);
@@ -127,7 +134,7 @@ namespace TowerDefense.DisplayMenu
         public static void MissionTimeUI(MissionTimer missionTimer)
         {
             Console.SetCursorPosition(31, 5);
-            Console.Write($"미션 시작 시간 : {missionTimer.Count}   ");
+            Console.Write($"미션 쿨타임 : {missionTimer.Count}   ");
         }
 
         public static void UpgradeUI()
@@ -191,7 +198,7 @@ namespace TowerDefense.DisplayMenu
 
         public static void UpdateEnemyHpUI()
         {
-            for (int i = 14; i < 21; i++)
+            for (int i = 14; i < 23; i++)
             {
                 Console.SetCursorPosition(1, i);
                 Console.Write("                        ");

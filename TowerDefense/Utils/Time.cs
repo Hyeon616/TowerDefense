@@ -1,10 +1,8 @@
 ﻿using System.Timers;
-using TowerDefense.Spawner;
-using TowerDefense.Control;
-using TowerDefense.TowerManager;
-using TowerDefense.Unit;
+using TowerDefense.Character.EnemySpawn;
+using TowerDefense.Character.PlayerInput;
 
-namespace TowerDefense.Cooldown
+namespace TowerDefense.Utils
 {
     public class Time
     {
@@ -47,21 +45,21 @@ namespace TowerDefense.Cooldown
             if (EnemySpawner.enemies.Count > 0)
             {
                 Count = 30;
-                
+
             }
 
-            if(Count == 0)
+            if (Count == 0)
             {
                 Input.player.Money += 200;
                 EnemySpawner.level += 1;
-                
+
             }
         }
     }
 
     class MissionTimer : Time
     {
-        
+
 
         public MissionTimer(int count, int countdown, int time)
         {
@@ -84,10 +82,10 @@ namespace TowerDefense.Cooldown
             {
                 Count = 0;
             }
-            
-            if (EnemySpawner.missionEnemies.Count>0)
+
+            if (EnemySpawner.missionEnemies.Count > 0)
             {
-                
+
                 Count = 40;
 
             }
@@ -109,11 +107,12 @@ namespace TowerDefense.Cooldown
         }
         private void TowerAttacktime(object source, ElapsedEventArgs e)
         {
-            if (Count >0)
+            if (Count > 0)
             {
                 Count--;
 
-            }else if (Count < 0)
+            }
+            else if (Count < 0)
             {
                 Count = 1;
 

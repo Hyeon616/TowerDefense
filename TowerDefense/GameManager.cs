@@ -1,8 +1,10 @@
-﻿using TowerDefense.Control;
+﻿
+using TowerDefense.Character.PlayerInput;
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
-using TowerDefense.Spawner;
 using TowerDefense.TowerManager;
+using TowerDefense.Character.EnemySpawn;
+using TowerDefense.Character.MoveEnemy;
 
 namespace TowerDefense
 {

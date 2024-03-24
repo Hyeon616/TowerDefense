@@ -1,9 +1,9 @@
-﻿using TowerDefense.Cooldown;
-using TowerDefense.DisplayMenu;
+﻿using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
-using TowerDefense.Unit;
+using TowerDefense.Utils;
+using TowerDefense.Character.MoveEnemy;
 
-namespace TowerDefense.Spawner
+namespace TowerDefense.Character.EnemySpawn
 {
     internal class EnemySpawner
     {
@@ -45,14 +45,14 @@ namespace TowerDefense.Spawner
             if (missionEnemies.Count < 1 && missionTimer.Count <= 0)
             {
                 missionEnemies.Add(new MissionEnemy(0, 0, hp, money, missionEnemyName));
-                startMission =false;
+                startMission = false;
             }
-            else if(missionEnemies.Count > 0)
+            else if (missionEnemies.Count > 0)
             {
                 UI.AlertUIPosition();
                 Console.WriteLine("이미 소환되어 있습니다.");
             }
-            else if(missionTimer.Count>0)
+            else if (missionTimer.Count > 0)
             {
                 UI.AlertUIPosition();
                 Console.WriteLine("아직 미션시간이 쿨타임이 남아있습니다.");

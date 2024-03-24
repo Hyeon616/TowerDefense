@@ -1,10 +1,10 @@
 ﻿using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
-using TowerDefense.Spawner;
 using TowerDefense.TowerManager;
-using TowerDefense.Unit;
+using TowerDefense.Utils;
+using TowerDefense.Character.EnemySpawn;
 
-namespace TowerDefense.Control
+namespace TowerDefense.Character.PlayerInput
 {
     internal class Input
     {

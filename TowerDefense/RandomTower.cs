@@ -1,9 +1,9 @@
-﻿using TowerDefense.Control;
-using TowerDefense.Cooldown;
+﻿using TowerDefense.Character;
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
-using TowerDefense.Spawner;
-using TowerDefense.Unit;
+using TowerDefense.Utils;
+using TowerDefense.Character.PlayerInput;
+using TowerDefense.Character.EnemySpawn;
 
 namespace TowerDefense.TowerManager
 {

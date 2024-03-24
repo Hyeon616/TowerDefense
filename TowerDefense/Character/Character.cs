@@ -1,10 +1,6 @@
-﻿using System.Timers;
-using TowerDefense.Map;
-using TowerDefense.TowerManager;
-using TowerDefense.Spawner;
-using System.Net;
+﻿using TowerDefense.Map;
 
-namespace TowerDefense.Unit
+namespace TowerDefense.Character
 {
     public class Unit
     {
@@ -39,9 +35,9 @@ namespace TowerDefense.Unit
     }
     public class Enemy : Unit
     {
-        public int ID {  get; set; }
+        public int ID { get; set; }
 
-        public Enemy(int x, int y, int id,int hp)
+        public Enemy(int x, int y, int id, int hp)
         {
             X = x;
             Y = y;
@@ -71,11 +67,11 @@ namespace TowerDefense.Unit
     public class Tower : Unit
     {
         public int Atk { get; set; }
-        public int AttackSpeed {  get; set; }
+        public int AttackSpeed { get; set; }
         public int Grade { get; set; }
-        
+
         public Maps.MapState TowerName { get; set; }
-        
+
         public Tower(int x, int y, int atk, int grade, Maps.MapState towerName)
         {
             X = x;
@@ -86,7 +82,7 @@ namespace TowerDefense.Unit
 
         }
 
-        
+
 
     }
 }
