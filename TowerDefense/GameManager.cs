@@ -48,6 +48,8 @@ namespace TowerDefense
                 UI.UpgradeUI();
                 UI.TutorialUI();
                 UI.LevelUI();
+                //UI.ProcessUI();
+
 
                 EnemySpawner.AddEnemy();
 

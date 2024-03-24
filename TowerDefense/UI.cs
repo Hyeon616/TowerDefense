@@ -2,6 +2,7 @@
 using TowerDefense.Utils;
 using TowerDefense.Character.EnemySpawn;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace TowerDefense.DisplayMenu
 {
@@ -203,6 +204,23 @@ namespace TowerDefense.DisplayMenu
                 Console.SetCursorPosition(1, i);
                 Console.Write("                        ");
             }
+        }
+
+        public static void ProcessUI()
+        {
+            
+            Process currentProcess = Process.GetCurrentProcess();
+            Console.SetCursorPosition(2, 26);
+            Console.WriteLine("메모리 사용량: {0} KB", currentProcess.WorkingSet64 / 1024);
+
+            // 필요한 경우 기타 속성도 출력 가능
+            Console.SetCursorPosition(2, 27);
+            Console.WriteLine("가상 메모리 사용량: {0} KB", currentProcess.VirtualMemorySize64 / 1024);
+            Console.SetCursorPosition(2, 28);
+            Console.WriteLine("페이지 파일 사용량: {0} KB", currentProcess.PagedMemorySize64 / 1024);
+
+            // 프로세스 객체를 사용한 후에는 반드시 리소스를 해제해야 합니다.
+            currentProcess.Dispose();
         }
 
     }

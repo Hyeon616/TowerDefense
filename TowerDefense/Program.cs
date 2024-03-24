@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Diagnostics;
+
 namespace TowerDefense
 {
     internal class Program
@@ -12,6 +15,7 @@ namespace TowerDefense
             GameManager.Menu();
 
             GameManager.GameStart();
+
             
         }
     }
