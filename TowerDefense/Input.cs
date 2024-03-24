@@ -119,16 +119,16 @@ namespace TowerDefense.Control
                             switch (RandomTower.BuildTowerNumber())
                             {
                                 case (int)Maps.MapState.NORMALCONSONANT:
-                                    RandomTower.TowerSpawn(5, 1, Maps.MapState.NORMALCONSONANT);
+                                    RandomTower.TowerSpawn(4, 1, Maps.MapState.NORMALCONSONANT);
                                     break;
                                 case (int)Maps.MapState.NORMALWORD:
-                                    RandomTower.TowerSpawn(5, 1, Maps.MapState.NORMALWORD);
+                                    RandomTower.TowerSpawn(4, 1, Maps.MapState.NORMALWORD);
                                     break;
                                 case (int)Maps.MapState.NORMALALPHA:
-                                    RandomTower.TowerSpawn(5, 1, Maps.MapState.NORMALALPHA);
+                                    RandomTower.TowerSpawn(4, 1, Maps.MapState.NORMALALPHA);
                                     break;
                                 case (int)Maps.MapState.NORMALNUMBER:
-                                    RandomTower.TowerSpawn(5, 1, Maps.MapState.NORMALNUMBER);
+                                    RandomTower.TowerSpawn(4, 1, Maps.MapState.NORMALNUMBER);
                                     break;
                             }
                         }
@@ -320,6 +320,10 @@ namespace TowerDefense.Control
                         Environment.Exit(0);
                         UI.AlertUIPosition();
                         Console.WriteLine("게임을 종료합니다.           ");
+                        break;
+
+                    case ConsoleKey.M:
+                        player.Money += 10000;
                         break;
 
                 }

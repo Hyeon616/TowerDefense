@@ -1,5 +1,6 @@
 ﻿using TowerDefense.Cooldown;
 using TowerDefense.Drawing;
+using TowerDefense.Spawner;
 using TowerDefense.Unit;
 
 namespace TowerDefense.DisplayMenu
@@ -56,7 +57,7 @@ namespace TowerDefense.DisplayMenu
 
                 }
                 Console.WriteLine(lines[i]);
-                //Thread.Sleep(200);
+                Thread.Sleep(200);
             }
 
             Console.SetCursorPosition(20, 30);
@@ -68,6 +69,7 @@ namespace TowerDefense.DisplayMenu
             DrawingUI.TestMain();
 
         }
+
 
         public static void PlayerUI(Player player)
         {
@@ -108,13 +110,14 @@ namespace TowerDefense.DisplayMenu
                 Console.WriteLine($" 적 체력 : {missionEnemies[i].Hp} ");
                 Console.ResetColor();
 
-                Console.SetCursorPosition(33,29);
+                Console.SetCursorPosition(33, 29);
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine($"{missionEnemies[i].MissionEnemyName} 시작");
                 Console.ResetColor();
             }
 
         }
+
         public static void WaveTimeUI(WaveTimer waveTimer)
         {
             Console.SetCursorPosition(30, 3);
@@ -126,6 +129,59 @@ namespace TowerDefense.DisplayMenu
             Console.SetCursorPosition(31, 5);
             Console.Write($"미션 시작 시간 : {missionTimer.Count}   ");
         }
+
+        public static void UpgradeUI()
+        {
+            Console.SetCursorPosition(58, 10);
+            Console.Write($"업그레이드 : ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"(20 $)  ");
+            Console.ResetColor();
+
+            Console.SetCursorPosition(58, 12);
+            Console.Write($"[U] ㉠ : {TowerInfo.consonantAtkUp}   ");
+            Console.SetCursorPosition(58, 14);
+            Console.Write($"[I] ㉮ : {TowerInfo.wordAtkUp}   ");
+            Console.SetCursorPosition(58, 16);
+            Console.Write($"[O] ⓐ : {TowerInfo.alphaAtkUp}   ");
+            Console.SetCursorPosition(58, 18);
+            Console.Write($"[P] ① : {TowerInfo.numberAtkUp}   ");
+
+        }
+
+        public static void LevelUI()
+        {
+
+            Console.SetCursorPosition(63, 4);
+            Console.Write($"Level : {EnemySpawner.level}  ");
+
+        }
+
+        public static void TutorialUI()
+        {
+            Console.SetCursorPosition(3, 34);
+            Console.WriteLine("↑ ↓ ← → : 이동");
+            Console.SetCursorPosition(4, 37);
+            Console.WriteLine("Z X C V : 개인 미션");
+
+            Console.SetCursorPosition(31, 34);
+            Console.WriteLine("Q : 타워 합성");
+            Console.SetCursorPosition(31, 37);
+            Console.WriteLine("ESC : 종료");
+
+            Console.SetCursorPosition(50, 34);
+            Console.Write($"R : 타워 판매");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($" (+ 50 $)");
+            Console.ResetColor();
+
+            Console.SetCursorPosition(50, 37);
+            Console.Write($"Enter : 타워 구매");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($" (- 100 $)");
+            Console.ResetColor();
+        }
+
 
 
         public static void AlertUIPosition()

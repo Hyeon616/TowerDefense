@@ -33,8 +33,8 @@ namespace TowerDefense.Unit
         {
             X = x;
             Y = y;
-            Money = 50000;
-            Hp = 40;
+            Money = 200;
+            Hp = 50;
         }
     }
     public class Enemy : Unit

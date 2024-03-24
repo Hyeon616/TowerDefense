@@ -23,7 +23,6 @@ namespace TowerDefense
                     break;
                 }
                     
-
             }
 
         }
@@ -44,7 +43,9 @@ namespace TowerDefense
                 UI.EnemyHpUI(EnemySpawner.missionEnemies);
                 UI.WaveTimeUI(EnemySpawner.waveTimer);
                 UI.MissionTimeUI(EnemySpawner.missionTimer);
-
+                UI.UpgradeUI();
+                UI.TutorialUI();
+                UI.LevelUI();
 
                 EnemySpawner.AddEnemy();
 
