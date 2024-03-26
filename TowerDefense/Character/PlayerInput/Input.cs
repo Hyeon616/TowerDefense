@@ -3,6 +3,7 @@ using TowerDefense.Map;
 using TowerDefense.TowerManager;
 using TowerDefense.Utils;
 using TowerDefense.Character.EnemySpawn;
+using System;
 
 namespace TowerDefense.Character.PlayerInput
 {
@@ -134,13 +135,13 @@ namespace TowerDefense.Character.PlayerInput
                         }
                         else if (Maps.map[player.X, player.Y] == 1 && player.Money < 100)
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("금액이 부족해 건설할 수 없습니다.            ");
                             break;
                         }
                         else if (Maps.map[player.X, player.Y] == 0)
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("그곳은 건설할 수 없습니다.            ");
                             break;
                         }
@@ -245,19 +246,19 @@ namespace TowerDefense.Character.PlayerInput
 
                     // 미션 몬스터 소환
                     case ConsoleKey.Z:
-                        EnemySpawner.startMission = true;
+                        
                         EnemySpawner.AddMissionEnemy(2000, 100, Maps.MapState.MISSION1);
                         break;
                     case ConsoleKey.X:
-                        EnemySpawner.startMission = true;
+                        
                         EnemySpawner.AddMissionEnemy(10000, 300, Maps.MapState.MISSION2);
                         break;
                     case ConsoleKey.C:
-                        EnemySpawner.startMission = true;
+                        
                         EnemySpawner.AddMissionEnemy(30000, 500, Maps.MapState.MISSION3);
                         break;
                     case ConsoleKey.V:
-                        EnemySpawner.startMission = true;
+                        
                         EnemySpawner.AddMissionEnemy(50000, 1000, Maps.MapState.MISSION4);
                         break;
 
@@ -271,7 +272,7 @@ namespace TowerDefense.Character.PlayerInput
                         }
                         else
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("금액이 부족해 업그레이드 할 수 없습니다.           ");
                             break;
                         }
@@ -284,7 +285,7 @@ namespace TowerDefense.Character.PlayerInput
                         }
                         else
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("금액이 부족해 업그레이드 할 수 없습니다.           ");
                             break;
                         }
@@ -297,7 +298,7 @@ namespace TowerDefense.Character.PlayerInput
                         }
                         else
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("금액이 부족해 업그레이드 할 수 없습니다.           ");
                             break;
                         }
@@ -310,7 +311,7 @@ namespace TowerDefense.Character.PlayerInput
                         }
                         else
                         {
-                            UI.AlertUIPosition();
+                             Console.SetCursorPosition(29, 27);;
                             Console.WriteLine("금액이 부족해 업그레이드 할 수 없습니다.           ");
                             break;
                         }
@@ -318,7 +319,7 @@ namespace TowerDefense.Character.PlayerInput
                     // 게임 종료
                     case ConsoleKey.Escape:
                         Environment.Exit(0);
-                        UI.AlertUIPosition();
+                         Console.SetCursorPosition(29, 27);;
                         Console.WriteLine("게임을 종료합니다.           ");
                         break;
 

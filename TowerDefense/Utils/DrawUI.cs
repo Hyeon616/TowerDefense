@@ -1,8 +1,10 @@
-﻿namespace TowerDefense.Utils
+﻿using System;
+
+namespace TowerDefense.Utils
 {
     public class DrawingUI
     {
-        public static void TestMain()
+        public void TestMain()
         {
             var w = Console.WindowWidth;
             var h = Console.WindowHeight;

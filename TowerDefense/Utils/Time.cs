@@ -8,7 +8,7 @@ namespace TowerDefense.Utils
     {
         public int Count { get; set; }
         public int Countdown { get; set; }
-        public System.Timers.Timer setTimer { get; set; }
+        public Timer setTimer { get; set; }
 
         public void StartTimer()
         {
@@ -29,22 +29,22 @@ namespace TowerDefense.Utils
             Count = count;
             Countdown = countdown;
 
-            setTimer = new System.Timers.Timer(time);
+            setTimer = new Timer(time);
             setTimer.Elapsed += CheckWaveTime;
             setTimer.AutoReset = true;
             setTimer.Enabled = true;
         }
         private void CheckWaveTime(object source, ElapsedEventArgs e)
         {
-            if (EnemySpawner.enemies.Count == 0)
+            if (Count> 0)
             {
                 Count--;
 
             }
 
-            if (EnemySpawner.enemies.Count > 0)
+            if (Count < 0)
             {
-                Count = 30;
+                Count = 10;
 
             }
 
@@ -52,6 +52,12 @@ namespace TowerDefense.Utils
             {
                 Input.player.Money += 200;
                 EnemySpawner.level += 1;
+
+
+
+
+
+
 
             }
         }
@@ -66,7 +72,7 @@ namespace TowerDefense.Utils
             Count = count;
             Countdown = countdown;
 
-            setTimer = new System.Timers.Timer(time);
+            setTimer = new Timer(time);
             setTimer.Elapsed += CheckMissionTime;
             setTimer.AutoReset = true;
             setTimer.Enabled = true;
@@ -100,7 +106,7 @@ namespace TowerDefense.Utils
             Count = count;
             Countdown = countdown;
 
-            setTimer = new System.Timers.Timer(time);
+            setTimer = new Timer(time);
             setTimer.Elapsed += TowerAttacktime;
             setTimer.AutoReset = true;
             setTimer.Enabled = true;

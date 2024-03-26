@@ -1,4 +1,6 @@
-﻿using TowerDefense.Character;
+﻿using System;
+using System.Collections.Generic;
+using TowerDefense.Character;
 using TowerDefense.Utils;
 
 namespace TowerDefense.Map
@@ -95,7 +97,7 @@ namespace TowerDefense.Map
             };
 
 
-        public static void PrintMap(Player player, List<Enemy> enemies, List<MissionEnemy> missionEnemies)
+        public static void PrintMap(Player player, Enemy enemy, List<MissionEnemy> missionEnemies)
         {
             char[,] displayMap = new char[map.GetLength(0), map.GetLength(1)];
 
@@ -188,23 +190,30 @@ namespace TowerDefense.Map
                     }
 
                     // 적 
-                    foreach (var enemy in enemies)
+                    //foreach (var enemy in enemies)
+                    //{
+                    //    if (enemy != null && i == enemy.X && j == enemy.Y)
+                    //    {
+                    //        displayMap[i, j] = enemyImage;
+                    //    }
+
+                    //}
+                    if (enemy != null && i == enemy.X && j == enemy.Y)
                     {
-                        if (i == enemy.X && j == enemy.Y)
-                        {
-                            displayMap[i, j] = enemyImage;
-                        }
+                        displayMap[i, j] = enemyImage;
                     }
+
+
                     // 미션 적
                     foreach (var missionEnemy in missionEnemies)
                     {
                         if (i == missionEnemy.X && j == missionEnemy.Y)
                         {
-                            if(missionEnemy.MissionEnemyName == MapState.MISSION1)
+                            if (missionEnemy.MissionEnemyName == MapState.MISSION1)
                             {
                                 displayMap[i, j] = missionEnemyImage1;
                             }
-                            else if(missionEnemy.MissionEnemyName == MapState.MISSION2)
+                            else if (missionEnemy.MissionEnemyName == MapState.MISSION2)
                             {
                                 displayMap[i, j] = missionEnemyImage2;
                             }
@@ -306,7 +315,7 @@ namespace TowerDefense.Map
                     }
 
                     Console.ForegroundColor = color;
-                    Console.SetCursorPosition(29+j*2,12+ i);
+                    Console.SetCursorPosition(29 + j * 2, 12 + i);
                     Console.Write(displayMapImage);
                 }
                 Console.WriteLine();

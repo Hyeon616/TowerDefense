@@ -1,22 +1,44 @@
 ﻿
+using System;
+using TowerDefense.Character;
+using TowerDefense.Character.EnemySpawn;
 using TowerDefense.Character.PlayerInput;
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
 using TowerDefense.TowerManager;
-using TowerDefense.Character.EnemySpawn;
-using TowerDefense.Character.MoveEnemy;
 
 namespace TowerDefense
 {
     internal class GameManager
     {
-        public static void Menu()
+        private UI ui;
+        private static GameManager instance;
+
+
+        public GameManager()
+        {
+            ui = new UI();
+        }
+
+        public static GameManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new GameManager();
+                }
+                return instance;
+            }
+        }
+
+        public void Menu()
         {
             while (true)
             {
 
                 Console.SetCursorPosition(0, 0);
-                UI.MainMenu();
+                ui.MainMenu();
                 Input.GameMenuInput();
 
                 if (Input.gameStart > 0)
@@ -24,40 +46,50 @@ namespace TowerDefense
                     Console.Clear();
                     break;
                 }
-                    
+
             }
 
         }
 
 
-        public static void GameStart()
+        public void GameStart()
         {
 
+            EnemySpawner.AddEnemy();
+            Enemy enemy1 = new Enemy(0, 0, 5, 500);
+            //Enemy.SetupTimer(enemy1, 1000);
+            enemy1.EnemyMove();
             while (true)
             {
 
-                
-                Maps.PrintMap(Input.player, EnemySpawner.enemies,EnemySpawner.missionEnemies);
 
-                UI.DrawLine();
-                UI.PlayerUI(Input.player);
-                UI.EnemyHpUI(EnemySpawner.enemies);
-                UI.EnemyHpUI(EnemySpawner.missionEnemies);
-                UI.WaveTimeUI(EnemySpawner.waveTimer);
-                UI.MissionTimeUI(EnemySpawner.missionTimer);
-                UI.UpgradeUI();
-                UI.TutorialUI();
-                UI.LevelUI();
-                //UI.ProcessUI();
+                Maps.PrintMap(Input.player, enemy1, EnemySpawner.missionEnemies);
+                ui.DrawLine();
+                ui.PlayerUI(Input.player);
+                ui.EnemyHpUI(EnemySpawner.enemies);
+                ui.EnemyHpUI(EnemySpawner.missionEnemies);
+                ui.WaveTimeUI(EnemySpawner.waveTimer);
+                ui.MissionTimeUI(EnemySpawner.missionTimer);
+                ui.UpgradeUI();
+                ui.TutorialUI();
+                ui.LevelUI();
+                // ui.ProcessUI();
 
 
-                EnemySpawner.AddEnemy();
+
+
+                if (EnemySpawner.enemy != null)
+                {
+                    EnemySpawner.enemy.EnemyMove();
+
+                }
 
                 Input.GamePlayInput(Input.player);
-                
+
                 RandomTower.TowerAttack();
 
-                EnemyMovement.EnemyMove(EnemySpawner.enemies, EnemySpawner.missionEnemies);
+
+
 
             }
 

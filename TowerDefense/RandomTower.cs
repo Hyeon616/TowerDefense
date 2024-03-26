@@ -1,9 +1,10 @@
 ﻿using TowerDefense.Character;
-using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
 using TowerDefense.Utils;
 using TowerDefense.Character.PlayerInput;
 using TowerDefense.Character.EnemySpawn;
+using System;
+using System.Collections.Generic;
 
 namespace TowerDefense.TowerManager
 {
@@ -179,7 +180,7 @@ namespace TowerDefense.TowerManager
                     break;
             }
 
-            UI.AlertUIPosition();
+             Console.SetCursorPosition(29, 27);;
             Console.Write($"{towerGradeColor}");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{towerName} ");
@@ -341,7 +342,7 @@ namespace TowerDefense.TowerManager
             }
             else
             {
-                UI.AlertUIPosition();
+                 Console.SetCursorPosition(29, 27);;
                 Console.WriteLine($"타워를 합성할 수 없습니다.                       ");
             }    
         }
@@ -363,7 +364,7 @@ namespace TowerDefense.TowerManager
                 }
 
                 Maps.map[Input.player.X, Input.player.Y] = (int)Maps.MapState.BUILD;
-                UI.AlertUIPosition();
+                 Console.SetCursorPosition(29, 27);;
                 Console.WriteLine("타워를 판매했습니다.             ");
                 Input.player.Money += 50;
                 sellTower.Clear();

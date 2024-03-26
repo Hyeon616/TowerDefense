@@ -1,14 +1,19 @@
-﻿using TowerDefense.Character;
-using TowerDefense.Utils;
+﻿using System.Diagnostics;
+using TowerDefense.Character;
 using TowerDefense.Character.EnemySpawn;
-using System.Numerics;
-using System.Diagnostics;
+using TowerDefense.Utils;
+using System;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace TowerDefense.DisplayMenu
 {
     internal class UI
     {
-        public static void MainMenu()
+        DrawingUI drawingUI = new DrawingUI();
+
+
+        public void MainMenu()
         {
 
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -58,21 +63,21 @@ namespace TowerDefense.DisplayMenu
 
                 }
                 Console.WriteLine(lines[i]);
-                Thread.Sleep(200);
+                //Thread.Sleep(200);
             }
 
             Console.SetCursorPosition(20, 30);
             Console.WriteLine("방향키 ↑ ↓로 고르고 Enter를 눌러주세요.");
 
         }
-        public static void DrawLine()
+        public void DrawLine()
         {
-            DrawingUI.TestMain();
+            drawingUI.TestMain();
 
         }
 
 
-        public static void PlayerUI(Player player)
+        public void PlayerUI(Player player)
         {
 
             Console.SetCursorPosition(8, 3);
@@ -80,65 +85,65 @@ namespace TowerDefense.DisplayMenu
             Console.Write($"♥ ");
             Console.ResetColor();
             Console.SetCursorPosition(10, 3);
-            Console.WriteLine($" : {player.Hp}");
+            Console.WriteLine($" : {player.Hp}    ");
 
             Console.SetCursorPosition(8, 5);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write($"$ ");
             Console.ResetColor();
             Console.SetCursorPosition(10, 5);
-            Console.WriteLine($" : {player.Money}");
+            Console.WriteLine($" : {player.Money}    ");
 
         }
 
-        public static void EnemyHpUI(List<Enemy> enemies)
+        public void EnemyHpUI(List<Enemy> enemies)
         {
             Console.SetCursorPosition(9, 13);
             Console.Write($" 적 ");
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(" ♥ ");
             Console.ResetColor();
-            
+
             for (int i = 0; i < enemies.Count; i++)
             {
-                Console.SetCursorPosition(2, 16 + 2*i);
+                Console.SetCursorPosition(2, 16 + 2 * i);
                 Console.WriteLine($"{enemies[i].ID}번적 체력 : {enemies[i].Hp}    ");
 
             }
         }
 
-        public static void EnemyHpUI(List<MissionEnemy> missionEnemies)
+        public void EnemyHpUI(List<MissionEnemy> missionEnemies)
         {
             for (int i = 0; i < missionEnemies.Count; i++)
             {
                 Console.SetCursorPosition(2, 14 + i);
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine($" 적 체력 : {missionEnemies[i].Hp} ");
+                Console.WriteLine($" 적 체력 : {missionEnemies[i].Hp}   ");
                 Console.ResetColor();
 
                 Console.SetCursorPosition(33, 29);
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"{missionEnemies[i].MissionEnemyName} 시작");
+                Console.WriteLine($"{missionEnemies[i].MissionEnemyName} 시작   ");
                 Console.ResetColor();
             }
 
         }
 
-        
 
-        public static void WaveTimeUI(WaveTimer waveTimer)
+
+        public void WaveTimeUI(WaveTimer waveTimer)
         {
             Console.SetCursorPosition(30, 3);
             Console.Write($"웨이브 시작 시간 : {waveTimer.Count}   ");
         }
 
-        public static void MissionTimeUI(MissionTimer missionTimer)
+        public void MissionTimeUI(MissionTimer missionTimer)
         {
             Console.SetCursorPosition(31, 5);
             Console.Write($"미션 쿨타임 : {missionTimer.Count}   ");
         }
 
-        public static void UpgradeUI()
+        public void UpgradeUI()
         {
             Console.SetCursorPosition(58, 10);
             Console.Write($"업그레이드 : ");
@@ -157,7 +162,7 @@ namespace TowerDefense.DisplayMenu
 
         }
 
-        public static void LevelUI()
+        public void LevelUI()
         {
 
             Console.SetCursorPosition(63, 4);
@@ -165,37 +170,34 @@ namespace TowerDefense.DisplayMenu
 
         }
 
-        public static void TutorialUI()
+        public void TutorialUI()
         {
             Console.SetCursorPosition(3, 34);
-            Console.WriteLine("↑ ↓ ← → : 이동");
+            Console.WriteLine("↑ ↓ ← → : 이동 ");
             Console.SetCursorPosition(4, 37);
-            Console.WriteLine("Z X C V : 개인 미션");
+            Console.WriteLine("Z X C V : 개인 미션 ");
 
             Console.SetCursorPosition(31, 34);
-            Console.WriteLine("Q : 타워 합성");
+            Console.WriteLine("Q : 타워 합성 ");
             Console.SetCursorPosition(31, 37);
-            Console.WriteLine("ESC : 종료");
+            Console.WriteLine("ESC : 종료 ");
 
             Console.SetCursorPosition(50, 34);
-            Console.Write($"R : 타워 판매");
+            Console.Write($"R : 타워 판매 ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($" (+ 50 $)");
+            Console.Write($" (+ 50 $) ");
             Console.ResetColor();
 
             Console.SetCursorPosition(50, 37);
-            Console.Write($"Enter : 타워 구매");
+            Console.Write($"Enter : 타워 구매 ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($" (- 100 $)");
+            Console.Write($" (- 100 $) ");
             Console.ResetColor();
         }
 
 
 
-        public static void AlertUIPosition()
-        {
-            Console.SetCursorPosition(29, 27);
-        }
+        
 
         public static void UpdateEnemyHpUI()
         {
@@ -206,9 +208,9 @@ namespace TowerDefense.DisplayMenu
             }
         }
 
-        public static void ProcessUI()
+        public void ProcessUI()
         {
-            
+
             Process currentProcess = Process.GetCurrentProcess();
             Console.SetCursorPosition(2, 26);
             Console.WriteLine("메모리 사용량: {0} KB", currentProcess.WorkingSet64 / 1024);
