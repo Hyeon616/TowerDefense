@@ -41,10 +41,15 @@ namespace TowerDefense.Utils
                 Count--;
 
             }
-
-            if (EnemySpawner.enemies.Count > 0)
+            if(Count <= 0)
             {
-                Count = 30;
+                Count = 0;
+            }
+
+
+            if (EnemySpawner.enemies.Count == 4)
+            {
+                Count = 5;
 
             }
 

@@ -1,24 +1,25 @@
 ﻿using TowerDefense.DisplayMenu;
 using TowerDefense.Character.EnemySpawn;
 using TowerDefense.Character.PlayerInput;
+using System.Timers;
 
 namespace TowerDefense.Character.MoveEnemy
 {
     internal class EnemyMovement
     {
-        public static bool enemyMoveCheck1 = true;
-        public static bool enemyMoveCheck2 = true;
-        public static bool enemyMoveCheck3 = true;
+        private static System.Timers.Timer moveTimer;
 
-        public static bool missionEnemyMoveCheck1 = true;
-        public static bool missionEnemyMoveCheck2 = true;
-        public static bool missionEnemyMoveCheck3 = true;
-
-
-        public static void EnemyMove(List<Enemy> enemies, List<MissionEnemy> missionEnemies)
+        public static void StartEnemyMovement()
         {
-            Thread.Sleep(200);
+            moveTimer = new System.Timers.Timer(200); // 200 milliseconds interval for movement
+            moveTimer.Elapsed += MoveEnemies;
+            moveTimer.AutoReset = true;
+            moveTimer.Enabled = true;
+        }
 
+        public static void MoveEnemies(object sender, ElapsedEventArgs e)
+        {
+            
             List<Enemy> arrivedEnemy = new List<Enemy>();
             List<Enemy> DeadEnemy = new List<Enemy>();
 
@@ -27,8 +28,9 @@ namespace TowerDefense.Character.MoveEnemy
 
             if (EnemySpawner.enemies.Count != 0)
             {
-                foreach (var enemy in enemies)
+                foreach (var enemy in EnemySpawner.enemies)
                 {
+
                     if (enemy.IsMoveValid(enemy.X, enemy.Y))
                     {
                         // 4,0 까지
@@ -37,7 +39,7 @@ namespace TowerDefense.Character.MoveEnemy
                             enemy.X++;
                         }
                         // 4, 11 까지
-                        else if (enemy.X == 4 && enemy.Y < 11 && enemyMoveCheck1)
+                        else if (enemy.X == 4 && enemy.Y < 11 && enemy.enemyMoveCheck1)
                         {
                             enemy.Y++;
 
@@ -48,7 +50,7 @@ namespace TowerDefense.Character.MoveEnemy
                             enemy.X--;
 
                             if (enemy.X == 0 && enemy.Y == 11)
-                                enemyMoveCheck1 = false;
+                                enemy.enemyMoveCheck1 = false;
                         }
                         // 0,7 까지
                         else if (enemy.X == 0 && enemy.Y > 7)
@@ -57,7 +59,7 @@ namespace TowerDefense.Character.MoveEnemy
 
                         }
                         // 11, 7까지
-                        else if (enemy.X < 11 && enemy.Y == 7 && enemyMoveCheck2)
+                        else if (enemy.X < 11 && enemy.Y == 7 && enemy.enemyMoveCheck2)
                         {
                             enemy.X++;
 
@@ -74,11 +76,11 @@ namespace TowerDefense.Character.MoveEnemy
                             enemy.X--;
 
                             if (enemy.X == 7 && enemy.Y == 11)
-                                enemyMoveCheck2 = false;
+                                enemy.enemyMoveCheck2 = false;
 
                         }
                         //7 ,0
-                        else if (enemy.X == 7 && enemy.Y > 0 && enemyMoveCheck3)
+                        else if (enemy.X == 7 && enemy.Y > 0 && enemy.enemyMoveCheck3)
                         {
                             enemy.Y--;
                         }
@@ -94,7 +96,7 @@ namespace TowerDefense.Character.MoveEnemy
                             enemy.Y++;
 
                             if (enemy.X == 11 && enemy.Y == 4)
-                                enemyMoveCheck3 = false;
+                                enemy.enemyMoveCheck3 = false;
 
                         }
                         ////0,4
@@ -113,8 +115,9 @@ namespace TowerDefense.Character.MoveEnemy
                         }
                     }
 
-                    if (enemy.Hp < 1)
+                    if (enemy.Hp <= 0)
                     {
+                        enemy.Hp = 0;
                         for (int i = 0; i < EnemySpawner.enemies.Count; i++)
                         {
                             DeadEnemy.Add(enemy);
@@ -138,7 +141,7 @@ namespace TowerDefense.Character.MoveEnemy
 
             if (EnemySpawner.missionEnemies.Count != 0)
             {
-                foreach (var missionEnemy in missionEnemies)
+                foreach (var missionEnemy in EnemySpawner.missionEnemies)
                 {
                     if (missionEnemy.IsMoveValid(missionEnemy.X, missionEnemy.Y))
                     {
@@ -146,7 +149,7 @@ namespace TowerDefense.Character.MoveEnemy
                         {
                             missionEnemy.X++;
                         }
-                        else if (missionEnemy.X == 4 && missionEnemy.Y < 11 && missionEnemyMoveCheck1)
+                        else if (missionEnemy.X == 4 && missionEnemy.Y < 11 && missionEnemy.missionEnemyMoveCheck1)
                         {
                             missionEnemy.Y++;
                         }
@@ -155,13 +158,13 @@ namespace TowerDefense.Character.MoveEnemy
                             missionEnemy.X--;
 
                             if (missionEnemy.X == 0 && missionEnemy.Y == 11)
-                                missionEnemyMoveCheck1 = false;
+                                missionEnemy.missionEnemyMoveCheck1 = false;
                         }
                         else if (missionEnemy.X == 0 && missionEnemy.Y > 7)
                         {
                             missionEnemy.Y--;
                         }
-                        else if (missionEnemy.X < 11 && missionEnemy.Y == 7 && missionEnemyMoveCheck2)
+                        else if (missionEnemy.X < 11 && missionEnemy.Y == 7 && missionEnemy.missionEnemyMoveCheck2)
                         {
                             missionEnemy.X++;
                         }
@@ -174,9 +177,9 @@ namespace TowerDefense.Character.MoveEnemy
                             missionEnemy.X--;
 
                             if (missionEnemy.X == 7 && missionEnemy.Y == 11)
-                                missionEnemyMoveCheck2 = false;
+                                missionEnemy.missionEnemyMoveCheck2 = false;
                         }
-                        else if (missionEnemy.X == 7 && missionEnemy.Y > 0 && missionEnemyMoveCheck3)
+                        else if (missionEnemy.X == 7 && missionEnemy.Y > 0 && missionEnemy.missionEnemyMoveCheck3)
                         {
                             missionEnemy.Y--;
                         }
@@ -189,7 +192,7 @@ namespace TowerDefense.Character.MoveEnemy
                             missionEnemy.Y++;
 
                             if (missionEnemy.X == 11 && missionEnemy.Y == 4)
-                                missionEnemyMoveCheck3 = false;
+                                missionEnemy.missionEnemyMoveCheck3 = false;
                         }
                         else if (missionEnemy.X > 0 && missionEnemy.Y == 4)
                         {
@@ -210,10 +213,12 @@ namespace TowerDefense.Character.MoveEnemy
                         Console.ResetColor();
                     }
                     
-                    if (missionEnemy.Hp < 1)
+                    if (missionEnemy.Hp <= 0)
                     {
+                        missionEnemy.Hp = 0;
                         for (int i = 0; i < EnemySpawner.missionEnemies.Count; i++)
                         {
+                            
                             DeadMissionEnemy.Add(missionEnemy);
                         }
                     }

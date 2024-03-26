@@ -144,6 +144,11 @@ namespace TowerDefense.Character.PlayerInput
                             Console.WriteLine("그곳은 건설할 수 없습니다.            ");
                             break;
                         }
+                        else if(Maps.map[player.X, player.Y] >1)
+                        {
+                            UI.AlertUIPosition();
+                            Console.WriteLine("그곳은 이미 타워가 있습니다.          ");
+                        }
                         break;
                     // 타워 판매
                     case ConsoleKey.R:
@@ -245,19 +250,15 @@ namespace TowerDefense.Character.PlayerInput
 
                     // 미션 몬스터 소환
                     case ConsoleKey.Z:
-                        EnemySpawner.startMission = true;
                         EnemySpawner.AddMissionEnemy(2000, 100, Maps.MapState.MISSION1);
                         break;
                     case ConsoleKey.X:
-                        EnemySpawner.startMission = true;
                         EnemySpawner.AddMissionEnemy(10000, 300, Maps.MapState.MISSION2);
                         break;
                     case ConsoleKey.C:
-                        EnemySpawner.startMission = true;
                         EnemySpawner.AddMissionEnemy(30000, 500, Maps.MapState.MISSION3);
                         break;
                     case ConsoleKey.V:
-                        EnemySpawner.startMission = true;
                         EnemySpawner.AddMissionEnemy(50000, 1000, Maps.MapState.MISSION4);
                         break;
 

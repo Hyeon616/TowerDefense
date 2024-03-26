@@ -1,4 +1,5 @@
-﻿using TowerDefense.Map;
+﻿using Timer = System.Timers.Timer;
+using TowerDefense.Map;
 
 namespace TowerDefense.Character
 {
@@ -35,6 +36,10 @@ namespace TowerDefense.Character
     }
     public class Enemy : Unit
     {
+        public bool enemyMoveCheck1 = true;
+        public bool enemyMoveCheck2 = true;
+        public bool enemyMoveCheck3 = true;
+
         public int ID { get; set; }
 
         public Enemy(int x, int y, int id, int hp)
@@ -50,6 +55,11 @@ namespace TowerDefense.Character
     public class MissionEnemy : Unit
     {
         public int Cost { get; set; }
+
+
+        public bool missionEnemyMoveCheck1 = true;
+        public bool missionEnemyMoveCheck2 = true;
+        public bool missionEnemyMoveCheck3 = true;
 
         public Maps.MapState MissionEnemyName { get; set; }
 
@@ -69,9 +79,9 @@ namespace TowerDefense.Character
         public int Atk { get; set; }
         public int AttackSpeed { get; set; }
         public int Grade { get; set; }
-
         public Maps.MapState TowerName { get; set; }
 
+        
         public Tower(int x, int y, int atk, int grade, Maps.MapState towerName)
         {
             X = x;
@@ -81,7 +91,6 @@ namespace TowerDefense.Character
             TowerName = towerName;
 
         }
-
 
 
     }

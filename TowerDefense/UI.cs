@@ -58,7 +58,7 @@ namespace TowerDefense.DisplayMenu
 
                 }
                 Console.WriteLine(lines[i]);
-                Thread.Sleep(200);
+               // Thread.Sleep(200);
             }
 
             Console.SetCursorPosition(20, 30);
@@ -80,14 +80,14 @@ namespace TowerDefense.DisplayMenu
             Console.Write($"♥ ");
             Console.ResetColor();
             Console.SetCursorPosition(10, 3);
-            Console.WriteLine($" : {player.Hp}");
+            Console.WriteLine($" : {player.Hp}    ");
 
             Console.SetCursorPosition(8, 5);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write($"$ ");
             Console.ResetColor();
             Console.SetCursorPosition(10, 5);
-            Console.WriteLine($" : {player.Money}");
+            Console.WriteLine($" : {player.Money}    ");
 
         }
 
@@ -113,7 +113,7 @@ namespace TowerDefense.DisplayMenu
             {
                 Console.SetCursorPosition(2, 14 + i);
                 Console.ForegroundColor = ConsoleColor.DarkCyan;
-                Console.WriteLine($" 적 체력 : {missionEnemies[i].Hp} ");
+                Console.WriteLine($" 적 체력 : {missionEnemies[i].Hp}   ");
                 Console.ResetColor();
 
                 Console.SetCursorPosition(33, 29);

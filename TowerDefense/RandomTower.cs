@@ -14,10 +14,11 @@ namespace TowerDefense.TowerManager
         public const int towerHeightRange = 5;
 
         public static List<Tower> towerGroup = new List<Tower>();
-        public static AttackTimer attackTimer = new AttackTimer(2, 0, 300);
+        //public static AttackTimer attackTimer = new AttackTimer(2, 0, 800);
 
         public static int tempDamge;
         public static int tempGrade;
+        private static System.Timers.Timer attackTimer;
 
         public static int BuildTowerNumber()
         {
@@ -186,10 +187,15 @@ namespace TowerDefense.TowerManager
             Console.WriteLine("건설                       ");
         }
 
+        
+
         public static void TowerAttack()
         {
-            if (towerGroup.Count == 0 || attackTimer.Count != 0)
+            if (towerGroup.Count == 0)
                 return;
+
+            //StartAttackTimer();
+
 
             List<Enemy> enemies = EnemySpawner.enemies;
             List<MissionEnemy> missionEnemies = EnemySpawner.missionEnemies;
@@ -206,6 +212,7 @@ namespace TowerDefense.TowerManager
                     if (distanceX <= 2 && distanceY <= 2)
                     {
                         enemy.Hp -= tower.Atk;
+                        break;
                     }
                 }
 
@@ -217,9 +224,19 @@ namespace TowerDefense.TowerManager
                     if (distanceX <= 2 && distanceY <= 2)
                     {
                         missionEnemy.Hp -= tower.Atk;
+                        break;
                     }
                 }
             }
+        }
+
+        public static void StartAttackTimer()
+        {
+            // 공격 쿨타임 타이머 시작
+            attackTimer = new System.Timers.Timer(200); 
+            attackTimer.Elapsed += (sender, e) => TowerAttack();
+            attackTimer.AutoReset = true; 
+            attackTimer.Enabled = true;
         }
 
         public static void MixTowerSpawn(Maps.MapState currentGradeTower, Maps.MapState nextGradeTower)
@@ -345,6 +362,12 @@ namespace TowerDefense.TowerManager
                 Console.WriteLine($"타워를 합성할 수 없습니다.                       ");
             }    
         }
+
+
+        
+
+
+
 
         public static void SellTower()
         {

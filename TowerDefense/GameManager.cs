@@ -1,15 +1,18 @@
 ﻿
+using TowerDefense.Character.EnemySpawn;
+using TowerDefense.Character.MoveEnemy;
 using TowerDefense.Character.PlayerInput;
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
 using TowerDefense.TowerManager;
-using TowerDefense.Character.EnemySpawn;
-using TowerDefense.Character.MoveEnemy;
 
 namespace TowerDefense
 {
     internal class GameManager
     {
+
+        static readonly object consoleLock = new object();
+
         public static void Menu()
         {
             while (true)
@@ -24,7 +27,7 @@ namespace TowerDefense
                     Console.Clear();
                     break;
                 }
-                    
+
             }
 
         }
@@ -33,11 +36,22 @@ namespace TowerDefense
         public static void GameStart()
         {
 
+            EnemySpawner.StartEnemySpawn();
+
+
+            EnemyMovement.StartEnemyMovement();
+
+
+
+            RandomTower.StartAttackTimer();
+
+
+
+
             while (true)
             {
 
-                
-                Maps.PrintMap(Input.player, EnemySpawner.enemies,EnemySpawner.missionEnemies);
+                Maps.PrintMap(Input.player, EnemySpawner.enemies, EnemySpawner.missionEnemies);
 
                 UI.DrawLine();
                 UI.PlayerUI(Input.player);
@@ -48,16 +62,22 @@ namespace TowerDefense
                 UI.UpgradeUI();
                 UI.TutorialUI();
                 UI.LevelUI();
+
+
+
                 //UI.ProcessUI();
 
-
-                EnemySpawner.AddEnemy();
-
-                Input.GamePlayInput(Input.player);
                 
-                RandomTower.TowerAttack();
+                Input.GamePlayInput(Input.player);
 
-                EnemyMovement.EnemyMove(EnemySpawner.enemies, EnemySpawner.missionEnemies);
+                if (Input.player.Hp <= 0)
+                {
+                    Input.player.Hp = 0;
+                    UI.AlertUIPosition();
+                    Console.WriteLine("패배 하셨습니다.      ");
+                    break;
+                }
+
 
             }
 
