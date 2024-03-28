@@ -162,11 +162,11 @@ namespace TowerDefense.Character.PlayerInput
                             switch ((Maps.MapState)Maps.map[player.X, player.Y])
                             {
                                 case Maps.MapState.LINE:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("그곳은 건설할 수 없습니다.            ");
                                     break;
                                 case Maps.MapState.BUILD:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("그곳은 타워가 없습니다.");
                                     break;
                                 // 노말 타워
@@ -227,19 +227,19 @@ namespace TowerDefense.Character.PlayerInput
 
                                 // 전설타워
                                 case Maps.MapState.LEGENDCONSONANT:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("타워가 최고 단계입니다.");
                                     break;
                                 case Maps.MapState.LEGENDWORD:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("타워가 최고 단계입니다.");
                                     break;
                                 case Maps.MapState.LEGENDALPHA:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("타워가 최고 단계입니다.");
                                     break;
                                 case Maps.MapState.LEGENDNUMBER:
-                                    Console.SetCursorPosition(15, 16);
+                                    UI.AlertUIPosition();
                                     Console.WriteLine("타워가 최고 단계입니다.");
                                     break;
                                 default:

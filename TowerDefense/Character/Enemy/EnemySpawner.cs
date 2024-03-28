@@ -8,12 +8,14 @@ namespace TowerDefense.Character.EnemySpawn
     internal class EnemySpawner
     {
 
-        public static WaveTimer waveTimer = new WaveTimer(5, 0, 1000);
+        public static WaveTimer waveTimer = new WaveTimer(60, 0, 1000);
         public static MissionTimer missionTimer = new MissionTimer(0, 0, 1000);
         private static Timer spawnTimer;
 
 
+        //public static List<Enemy> enemies = new List<Enemy>();
         public static List<Enemy> enemies = new List<Enemy>();
+        
         public static List<MissionEnemy> missionEnemies = new List<MissionEnemy>();
 
         public static int level = 1;
@@ -24,7 +26,7 @@ namespace TowerDefense.Character.EnemySpawn
         public static void StartEnemySpawn()
         {
             
-            spawnTimer = new Timer(201);
+            spawnTimer = new Timer(200);
             spawnTimer.Elapsed += (sender, e) => AddEnemy();
             spawnTimer.AutoReset = true;
             spawnTimer.Enabled = true;
@@ -35,7 +37,7 @@ namespace TowerDefense.Character.EnemySpawn
             
             if (enemies.Count < 4 && waveTimer.Count < 1)
             {
-                int enemyHp = 30 + (level-1)  * 14;
+                int enemyHp = 30 + (level-1)  * 12;
 
                 enemies.Add(new Enemy(0, 0, id, enemyHp));
 

@@ -3,6 +3,8 @@ using TowerDefense.Utils;
 using TowerDefense.Character.EnemySpawn;
 using System.Numerics;
 using System.Diagnostics;
+using System.Text;
+using System;
 
 namespace TowerDefense.DisplayMenu
 {
@@ -58,7 +60,7 @@ namespace TowerDefense.DisplayMenu
 
                 }
                 Console.WriteLine(lines[i]);
-               // Thread.Sleep(200);
+               Thread.Sleep(200);
             }
 
             Console.SetCursorPosition(20, 30);
@@ -94,17 +96,26 @@ namespace TowerDefense.DisplayMenu
         public static void EnemyHpUI(List<Enemy> enemies)
         {
             Console.SetCursorPosition(9, 13);
-            Console.Write($" 적 ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(" ♥ ");
-            Console.ResetColor();
+            Console.Write($" 적 체력");
             
+
             for (int i = 0; i < enemies.Count; i++)
             {
-                Console.SetCursorPosition(2, 16 + 2*i);
-                Console.WriteLine($"{enemies[i].ID}번적 체력 : {enemies[i].Hp}    ");
+                Console.SetCursorPosition(2, 16 + 2 * i);
+                Console.WriteLine($" {enemies[i].ID}번적 체력 : {enemies[i].Hp}  ");
 
+                if (enemies[i].Hp <= 0)
+                {
+                    Console.WriteLine("       ");
+                    continue;
+                }
             }
+            //for (int i = enemies.Count - 1; i >= 0; i--)
+            //{
+            //    Console.SetCursorPosition(2, 14 + 2 * (enemies.Count - 1 - i));
+            //    Console.WriteLine($" {enemies[i].ID}번적 체력 : {enemies[i].Hp}  ");
+            //}
+
         }
 
         public static void EnemyHpUI(List<MissionEnemy> missionEnemies)
@@ -129,8 +140,17 @@ namespace TowerDefense.DisplayMenu
         public static void WaveTimeUI(WaveTimer waveTimer)
         {
             Console.SetCursorPosition(30, 3);
+
+            //sb.Append($"웨이브 시작 시간 : {waveTimer.Count}   ");
             Console.Write($"웨이브 시작 시간 : {waveTimer.Count}   ");
         }
+
+        public static void GetWaveTimeUI(StringBuilder sb)
+        {
+            
+            Console.Write(sb.ToString());
+        }
+
 
         public static void MissionTimeUI(MissionTimer missionTimer)
         {
@@ -140,11 +160,11 @@ namespace TowerDefense.DisplayMenu
 
         public static void UpgradeUI()
         {
-            Console.SetCursorPosition(58, 10);
-            Console.Write($"업그레이드 : ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"(20 $)  ");
-            Console.ResetColor();
+            //Console.SetCursorPosition(58, 10);
+            //Console.Write($" Upgrade :");
+            //Console.ForegroundColor = ConsoleColor.Yellow;
+            //Console.Write($" (20 $)  ");
+            //Console.ResetColor();
 
             Console.SetCursorPosition(58, 12);
             Console.Write($"[U] ㉠ : {TowerInfo.consonantAtkUp}   ");
@@ -168,25 +188,25 @@ namespace TowerDefense.DisplayMenu
         public static void TutorialUI()
         {
             Console.SetCursorPosition(3, 34);
-            Console.WriteLine("↑ ↓ ← → : 이동");
+            Console.WriteLine("↑ ↓ ← → : 이동 ");
             Console.SetCursorPosition(4, 37);
-            Console.WriteLine("Z X C V : 개인 미션");
+            Console.WriteLine("Z X C V : 개인 미션 ");
 
-            Console.SetCursorPosition(31, 34);
-            Console.WriteLine("Q : 타워 합성");
-            Console.SetCursorPosition(31, 37);
+            Console.SetCursorPosition(28, 34);
+            Console.WriteLine("Q : 합성");
+            Console.SetCursorPosition(28, 37);
             Console.WriteLine("ESC : 종료");
 
-            Console.SetCursorPosition(50, 34);
-            Console.Write($"R : 타워 판매");
+            Console.SetCursorPosition(45, 34);
+            Console.Write($"R : 판매");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($" (+ 50 $)");
+            Console.Write($" (+ 50 $)  ");
             Console.ResetColor();
 
-            Console.SetCursorPosition(50, 37);
-            Console.Write($"Enter : 타워 구매");
+            Console.SetCursorPosition(45, 37);
+            Console.Write($"Enter : 구매");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($" (- 100 $)");
+            Console.Write($" (- 100 $)  ");
             Console.ResetColor();
         }
 

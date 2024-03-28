@@ -1,4 +1,5 @@
-﻿using TowerDefense.Character;
+﻿using System.Text;
+using TowerDefense.Character;
 using TowerDefense.Utils;
 
 namespace TowerDefense.Map
@@ -187,45 +188,54 @@ namespace TowerDefense.Map
                             break;
                     }
 
-                    // 적 
-                    foreach (var enemy in enemies)
+                    // 적
+                    if(enemies != null)
                     {
-                        if (i == enemy.X && j == enemy.Y)
+                        foreach (var enemy in enemies)
                         {
-                            displayMap[i, j] = enemyImage;
+                            if (IsValidPosition(enemy.X, enemy.Y, displayMap))
+                            {
+                                displayMap[enemy.X, enemy.Y] = enemyImage;
+                            }
+                            
                         }
                     }
-                    // 미션 적
-                    foreach (var missionEnemy in missionEnemies)
-                    {
-                        if (i == missionEnemy.X && j == missionEnemy.Y)
-                        {
-                            if(missionEnemy.MissionEnemyName == MapState.MISSION1)
-                            {
-                                displayMap[i, j] = missionEnemyImage1;
-                            }
-                            else if(missionEnemy.MissionEnemyName == MapState.MISSION2)
-                            {
-                                displayMap[i, j] = missionEnemyImage2;
-                            }
-                            else if (missionEnemy.MissionEnemyName == MapState.MISSION3)
-                            {
-                                displayMap[i, j] = missionEnemyImage3;
-                            }
-                            else if (missionEnemy.MissionEnemyName == MapState.MISSION4)
-                            {
-                                displayMap[i, j] = missionEnemyImage4;
-                            }
+                    
 
+                    // 미션 적
+                    if (missionEnemies.Count != 0)
+                    {
+                        foreach (var missionEnemy in missionEnemies)
+                        {
+                            if (i == missionEnemy.X && j == missionEnemy.Y)
+                            {
+                                if (missionEnemy.MissionEnemyName == MapState.MISSION1)
+                                {
+                                    displayMap[i, j] = missionEnemyImage1;
+                                }
+                                else if (missionEnemy.MissionEnemyName == MapState.MISSION2)
+                                {
+                                    displayMap[i, j] = missionEnemyImage2;
+                                }
+                                else if (missionEnemy.MissionEnemyName == MapState.MISSION3)
+                                {
+                                    displayMap[i, j] = missionEnemyImage3;
+                                }
+                                else if (missionEnemy.MissionEnemyName == MapState.MISSION4)
+                                {
+                                    displayMap[i, j] = missionEnemyImage4;
+                                }
+
+                            }
                         }
                     }
+
 
                     // 플레이어
-                    if (i == player.X && j == player.Y)
-                    {
-                        displayMap[i, j] = playerImage;
 
-                    }
+                    displayMap[player.X, player.Y] = playerImage;
+
+
 
                 }
 
@@ -306,9 +316,10 @@ namespace TowerDefense.Map
                     }
 
                     Console.ForegroundColor = color;
-                    Console.SetCursorPosition(29+j*2,12+ i);
+                    Console.SetCursorPosition(29 + j * 2, 12 + i);
                     Console.Write(displayMapImage);
                 }
+                    Console.Write(" ");
                 Console.WriteLine();
                 Console.ResetColor();
 
@@ -316,6 +327,25 @@ namespace TowerDefense.Map
 
 
         }
+
+        private static bool IsValidPosition(int x, int y, char[,] displayMap)
+        {
+            return x >= 0 && x < displayMap.GetLength(0) && y >= 0 && y < displayMap.GetLength(1);
+        }
+
+        public static void MapStringBuilderBuffer(StringBuilder sb)
+        {
+            for (int i = 0; i < sb.Length; i++)
+            {
+                Console.SetCursorPosition(29, 12 + i);
+                Console.Write(sb.ToString());
+            }
+
+
+        }
+
+
+
 
 
     }

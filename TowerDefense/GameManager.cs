@@ -1,4 +1,4 @@
-﻿
+﻿using System.Text;
 using TowerDefense.Character.EnemySpawn;
 using TowerDefense.Character.MoveEnemy;
 using TowerDefense.Character.PlayerInput;
@@ -11,7 +11,7 @@ namespace TowerDefense
     internal class GameManager
     {
 
-        static readonly object consoleLock = new object();
+
 
         public static void Menu()
         {
@@ -36,6 +36,9 @@ namespace TowerDefense
         public static void GameStart()
         {
 
+            StringBuilder sb = new StringBuilder();
+
+
             EnemySpawner.StartEnemySpawn();
 
 
@@ -44,30 +47,36 @@ namespace TowerDefense
 
 
             RandomTower.StartAttackTimer();
-
-
-
+            
 
             while (true)
             {
 
-                Maps.PrintMap(Input.player, EnemySpawner.enemies, EnemySpawner.missionEnemies);
 
                 UI.DrawLine();
-                UI.PlayerUI(Input.player);
-                UI.EnemyHpUI(EnemySpawner.enemies);
-                UI.EnemyHpUI(EnemySpawner.missionEnemies);
-                UI.WaveTimeUI(EnemySpawner.waveTimer);
-                UI.MissionTimeUI(EnemySpawner.missionTimer);
+
                 UI.UpgradeUI();
                 UI.TutorialUI();
                 UI.LevelUI();
+                UI.PlayerUI(Input.player);
+                UI.EnemyHpUI(EnemySpawner.enemies);
+                UI.EnemyHpUI(EnemySpawner.missionEnemies);
+                UI.MissionTimeUI(EnemySpawner.missionTimer);
+
+                //sb.Clear();
 
 
+                Maps.PrintMap(Input.player, EnemySpawner.enemies, EnemySpawner.missionEnemies);
+                UI.WaveTimeUI(EnemySpawner.waveTimer);
+                //Maps.MapStringBuilderBuffer(sb);
+
+
+
+                //UI.GetWaveTimeUI(sb);
 
                 //UI.ProcessUI();
 
-                
+
                 Input.GamePlayInput(Input.player);
 
                 if (Input.player.Hp <= 0)

@@ -10,15 +10,15 @@ namespace TowerDefense.Utils
         public int Countdown { get; set; }
         public System.Timers.Timer setTimer { get; set; }
 
-        public void StartTimer()
-        {
-            setTimer.Start();
-        }
+        //public void StartTimer()
+        //{
+        //    setTimer.Start();
+        //}
 
-        public void StopTimer()
-        {
-            setTimer.Stop();
-        }
+        //public void StopTimer()
+        //{
+        //    setTimer.Stop();
+        //}
 
     }
 
@@ -29,36 +29,46 @@ namespace TowerDefense.Utils
             Count = count;
             Countdown = countdown;
 
+            //setTimer = new System.Threading.Timer(CheckWaveTime, null, 0, time);
             setTimer = new System.Timers.Timer(time);
             setTimer.Elapsed += CheckWaveTime;
             setTimer.AutoReset = true;
             setTimer.Enabled = true;
         }
-        private void CheckWaveTime(object source, ElapsedEventArgs e)
+
+        
+
+        private void CheckWaveTime(object sender, ElapsedEventArgs e)
         {
-            if (EnemySpawner.enemies.Count == 0)
+
+            lock(EnemySpawner.enemies)
             {
-                Count--;
+                if (EnemySpawner.enemies.Count == 0)
+                {
+                    Count--;
 
+                }
+                if (Count <= 0)
+                {
+                    Count = 0;
+                }
+
+
+                if (EnemySpawner.enemies.Count == 4)
+                {
+                    Count = 60;
+
+                }
+
+                if (Count == 0)
+                {
+                    Input.player.Money += 200;
+                    EnemySpawner.level += 1;
+
+                }
             }
-            if(Count <= 0)
-            {
-                Count = 0;
-            }
 
-
-            if (EnemySpawner.enemies.Count == 4)
-            {
-                Count = 5;
-
-            }
-
-            if (Count == 0)
-            {
-                Input.player.Money += 200;
-                EnemySpawner.level += 1;
-
-            }
+            
         }
     }
 
@@ -98,32 +108,32 @@ namespace TowerDefense.Utils
         }
     }
 
-    class AttackTimer : Time
-    {
-        public AttackTimer(int count, int countdown, int time)
-        {
-            Count = count;
-            Countdown = countdown;
+    //class AttackTimer : Time
+    //{
+    //    public AttackTimer(int count, int countdown, int time)
+    //    {
+    //        Count = count;
+    //        Countdown = countdown;
 
-            setTimer = new System.Timers.Timer(time);
-            setTimer.Elapsed += TowerAttacktime;
-            setTimer.AutoReset = true;
-            setTimer.Enabled = true;
-        }
-        private void TowerAttacktime(object source, ElapsedEventArgs e)
-        {
-            if (Count > 0)
-            {
-                Count--;
+    //        setTimer = new System.Timers.Timer(time);
+    //        setTimer.Elapsed += TowerAttacktime;
+    //        setTimer.AutoReset = true;
+    //        setTimer.Enabled = true;
+    //    }
+    //    private void TowerAttacktime(object source, ElapsedEventArgs e)
+    //    {
+    //        if (Count > 0)
+    //        {
+    //            Count--;
 
-            }
-            else if (Count < 0)
-            {
-                Count = 1;
+    //        }
+    //        else if (Count < 0)
+    //        {
+    //            Count = 1;
 
-            }
+    //        }
 
-        }
-    }
+    //    }
+    
 
 }

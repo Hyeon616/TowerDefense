@@ -1,7 +1,7 @@
-﻿using TowerDefense.DisplayMenu;
+﻿using System.Timers;
 using TowerDefense.Character.EnemySpawn;
 using TowerDefense.Character.PlayerInput;
-using System.Timers;
+using TowerDefense.DisplayMenu;
 
 namespace TowerDefense.Character.MoveEnemy
 {
@@ -11,7 +11,7 @@ namespace TowerDefense.Character.MoveEnemy
 
         public static void StartEnemyMovement()
         {
-            moveTimer = new System.Timers.Timer(200); // 200 milliseconds interval for movement
+            moveTimer = new System.Timers.Timer(200);
             moveTimer.Elapsed += MoveEnemies;
             moveTimer.AutoReset = true;
             moveTimer.Enabled = true;
@@ -19,12 +19,13 @@ namespace TowerDefense.Character.MoveEnemy
 
         public static void MoveEnemies(object sender, ElapsedEventArgs e)
         {
-            
             List<Enemy> arrivedEnemy = new List<Enemy>();
             List<Enemy> DeadEnemy = new List<Enemy>();
 
             List<MissionEnemy> arrivedMissionEnemy = new List<MissionEnemy>();
             List<MissionEnemy> DeadMissionEnemy = new List<MissionEnemy>();
+
+
 
             if (EnemySpawner.enemies.Count != 0)
             {
@@ -111,6 +112,7 @@ namespace TowerDefense.Character.MoveEnemy
                     {
                         for (int i = 0; i < EnemySpawner.enemies.Count; i++)
                         {
+
                             arrivedEnemy.Add(enemy);
                         }
                     }
@@ -125,7 +127,6 @@ namespace TowerDefense.Character.MoveEnemy
                     }
 
                 }
-
                 foreach (var i in arrivedEnemy)
                 {
                     EnemySpawner.enemies.Remove(i);
@@ -212,13 +213,13 @@ namespace TowerDefense.Character.MoveEnemy
                         Console.WriteLine($"{missionEnemy.MissionEnemyName} 실패   ");
                         Console.ResetColor();
                     }
-                    
+
                     if (missionEnemy.Hp <= 0)
                     {
                         missionEnemy.Hp = 0;
                         for (int i = 0; i < EnemySpawner.missionEnemies.Count; i++)
                         {
-                            
+
                             DeadMissionEnemy.Add(missionEnemy);
                         }
                     }
@@ -237,6 +238,8 @@ namespace TowerDefense.Character.MoveEnemy
                     UI.UpdateEnemyHpUI();
 
                 }
+
+
             }
         }
     }

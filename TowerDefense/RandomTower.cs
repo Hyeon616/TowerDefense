@@ -1,9 +1,9 @@
 ﻿using TowerDefense.Character;
+using TowerDefense.Character.EnemySpawn;
+using TowerDefense.Character.PlayerInput;
 using TowerDefense.DisplayMenu;
 using TowerDefense.Map;
 using TowerDefense.Utils;
-using TowerDefense.Character.PlayerInput;
-using TowerDefense.Character.EnemySpawn;
 
 namespace TowerDefense.TowerManager
 {
@@ -14,11 +14,10 @@ namespace TowerDefense.TowerManager
         public const int towerHeightRange = 5;
 
         public static List<Tower> towerGroup = new List<Tower>();
-        //public static AttackTimer attackTimer = new AttackTimer(2, 0, 800);
 
         public static int tempDamge;
         public static int tempGrade;
-        private static System.Timers.Timer attackTimer;
+        private static Timer attackTimer;
 
         public static int BuildTowerNumber()
         {
@@ -54,7 +53,7 @@ namespace TowerDefense.TowerManager
                 case Maps.MapState.MAGICNUMBER:
                     towerColor = ConsoleColor.DarkGreen;
                     break;
-                
+
                 // 레어 타워
                 case Maps.MapState.RARECONSONANT:
                 case Maps.MapState.RAREWORD:
@@ -78,7 +77,7 @@ namespace TowerDefense.TowerManager
                 case Maps.MapState.LEGENDNUMBER:
                     towerColor = ConsoleColor.DarkRed;
                     break;
-                
+
             }
 
             Console.ForegroundColor = towerColor;
@@ -187,22 +186,46 @@ namespace TowerDefense.TowerManager
             Console.WriteLine("건설                       ");
         }
 
-        
 
-        public static void TowerAttack()
+
+        public static void TowerAttack(object state)
         {
             if (towerGroup.Count == 0)
                 return;
 
-            //StartAttackTimer();
+            List<Enemy> enemies;
+            List<MissionEnemy> missionEnemies;
 
+            lock (EnemySpawner.enemies)
+            {
+                enemies = EnemySpawner.enemies;
 
-            List<Enemy> enemies = EnemySpawner.enemies;
-            List<MissionEnemy> missionEnemies = EnemySpawner.missionEnemies;
+            }
+
+            lock (EnemySpawner.missionEnemies)
+            {
+
+                missionEnemies = EnemySpawner.missionEnemies;
+            }
 
             for (int i = 0; i < towerGroup.Count; i++)
             {
                 Tower tower = towerGroup[i];
+
+
+                //for (int j = 0; j < enemies.Count; j++)
+                //{
+                //    Enemy enemy = enemies.ElementAt(j);
+
+                //    int distanceX = Math.Abs(tower.X - enemy.X);
+                //    int distanceY = Math.Abs(tower.Y - enemy.Y);
+
+                //    if (distanceX <= 2 && distanceY <= 2)
+                //    {
+                //        enemy.Hp -= tower.Atk;
+                //        break;
+                //    }
+                //}
 
                 foreach (Enemy enemy in enemies)
                 {
@@ -233,10 +256,11 @@ namespace TowerDefense.TowerManager
         public static void StartAttackTimer()
         {
             // 공격 쿨타임 타이머 시작
-            attackTimer = new System.Timers.Timer(200); 
-            attackTimer.Elapsed += (sender, e) => TowerAttack();
-            attackTimer.AutoReset = true; 
-            attackTimer.Enabled = true;
+            attackTimer = new Timer(TowerAttack, null, 0, 200);
+            //attackTimer = new System.Timers.Timer(200); 
+            //attackTimer.Elapsed += (sender, e) => TowerAttack();
+            //attackTimer.AutoReset = true; 
+            //attackTimer.Enabled = true;
         }
 
         public static void MixTowerSpawn(Maps.MapState currentGradeTower, Maps.MapState nextGradeTower)
@@ -287,67 +311,67 @@ namespace TowerDefense.TowerManager
                 switch (firstTower.TowerName)
                 {
                     case Maps.MapState.NORMALCONSONANT:
-                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp*1, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp * 1, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.MAGICCONSONANT:
-                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp*2, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp * 2, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.RARECONSONANT:
-                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp*3, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp * 3, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.EPICCONSONANT:
-                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp*4, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp * 4, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.LEGENDCONSONANT:
-                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp*5, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.consonantAtkUp * 5, firstTower.Grade + 1, nextGradeTower);
                         break;
 
                     case Maps.MapState.NORMALWORD:
-                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp*1, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp * 1, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.MAGICWORD:
-                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp*2, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp * 2, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.RAREWORD:
-                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp*3, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp * 3, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.EPICWORD:
-                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp*4, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp * 4, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.LEGENDWORD:
-                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp*5, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.wordAtkUp * 5, firstTower.Grade + 1, nextGradeTower);
                         break;
 
                     case Maps.MapState.NORMALALPHA:
-                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp*1, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp * 1, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.MAGICALPHA:
-                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp*2, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp * 2, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.RAREALPHA:
-                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp*3, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp * 3, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.EPICALPHA:
-                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp*4, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp * 4, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.LEGENDALPHA:
-                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp*5, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.alphaAtkUp * 5, firstTower.Grade + 1, nextGradeTower);
                         break;
 
                     case Maps.MapState.NORMALNUMBER:
-                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp*1, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp * 1, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.MAGICNUMBER:
-                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp*2, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp * 2, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.RARENUMBER:
-                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp*3, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp * 3, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.EPICNUMBER:
-                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp*4, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp * 4, firstTower.Grade + 1, nextGradeTower);
                         break;
                     case Maps.MapState.LEGENDNUMBER:
-                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp*5, firstTower.Grade + 1, nextGradeTower);
+                        TowerSpawn(firstTower.Atk + TowerInfo.numberAtkUp * 5, firstTower.Grade + 1, nextGradeTower);
                         break;
 
                     default:
@@ -360,24 +384,24 @@ namespace TowerDefense.TowerManager
             {
                 UI.AlertUIPosition();
                 Console.WriteLine($"타워를 합성할 수 없습니다.                       ");
-            }    
+            }
         }
 
 
-        
+
 
 
 
 
         public static void SellTower()
         {
-            Queue<Tower> sellTower = new Queue<Tower>();
+            Stack<Tower> sellTower = new Stack<Tower>();
 
             if (Maps.map[Input.player.X, Input.player.Y] != 0 && Maps.map[Input.player.X, Input.player.Y] != 1)
             {
                 foreach (var tower in towerGroup)
                 {
-                    sellTower.Enqueue(tower);
+                    sellTower.Push(tower);
                 }
 
                 foreach (var tower in sellTower)
@@ -390,6 +414,11 @@ namespace TowerDefense.TowerManager
                 Console.WriteLine("타워를 판매했습니다.             ");
                 Input.player.Money += 50;
                 sellTower.Clear();
+            }
+            else
+            {
+                UI.AlertUIPosition();
+                Console.WriteLine("현재 자리에 타워가 없습니다.       ");
             }
 
         }
