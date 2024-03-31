@@ -186,13 +186,36 @@ namespace TowerDefense.TowerManager
             Console.WriteLine("건설                       ");
         }
 
+<<<<<<< Updated upstream
         public static void TowerAttack()
+=======
+
+
+        public void TowerAttack(object state, List<Enemy> enemies, List<MissionEnemy> missionEnemies)
+>>>>>>> Stashed changes
         {
             if (towerGroup.Count == 0 || attackTimer.Count != 0)
                 return;
 
+<<<<<<< Updated upstream
             List<Enemy> enemies = EnemySpawner.enemies;
             List<MissionEnemy> missionEnemies = EnemySpawner.missionEnemies;
+=======
+            //List<Enemy> enemies;
+            //List<MissionEnemy> missionEnemies;
+
+            //lock (EnemySpawner.enemies)
+            //{
+            //    enemies = EnemySpawner.enemies;
+
+            //}
+
+            //lock (EnemySpawner.missionEnemies)
+            //{
+
+            //    missionEnemies = EnemySpawner.missionEnemies;
+            //}
+>>>>>>> Stashed changes
 
             for (int i = 0; i < towerGroup.Count; i++)
             {
@@ -222,7 +245,18 @@ namespace TowerDefense.TowerManager
             }
         }
 
+<<<<<<< Updated upstream
         public static void MixTowerSpawn(Maps.MapState currentGradeTower, Maps.MapState nextGradeTower)
+=======
+        public void StartAttackTimer(List<Enemy> enemies, List<MissionEnemy> missionEnemies)
+        {
+            // 공격 쿨타임 타이머 시작
+            attackTimer = new Timer(state => TowerAttack(state, enemies, missionEnemies), null, 0, 200);
+            
+        }
+
+        public void MixTowerSpawn(Maps.MapState currentGradeTower, Maps.MapState nextGradeTower)
+>>>>>>> Stashed changes
         {
             List<Tower> gradeUpTower = new List<Tower>();
             gradeUpTower.Clear();

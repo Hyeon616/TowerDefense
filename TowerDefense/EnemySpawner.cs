@@ -8,6 +8,7 @@ namespace TowerDefense.Spawner
     internal class EnemySpawner
     {
 
+<<<<<<< Updated upstream:TowerDefense/EnemySpawner.cs
         public static WaveTimer waveTimer = new WaveTimer(30, 0, 1000);
         public static MissionTimer missionTimer = new MissionTimer(0, 0, 1000);
         public static List<Enemy> enemies = new List<Enemy>();
@@ -67,5 +68,10 @@ namespace TowerDefense.Spawner
             }
         }
 
+=======
+        
+        
+
+>>>>>>> Stashed changes:TowerDefense/Character/Enemy/EnemySpawner.cs
     }
 }
